@@ -9,9 +9,18 @@ Participants will have the opportunity to **collaborate, innovate, and earn offi
 ---
 
 <p align="center">
-  <img width="124" height="124" alt="HTS Logo" src="https://github.com/user-attachments/assets/53ec7ff2-bd12-45fa-8b5d-354c69e694bb" style="border:3px solid #007bff; border-radius:10px; margin-right:10px;" />
-  <img width="124" height="124" alt="Unstop Logo" src="https://github.com/user-attachments/assets/6f4a14d9-7198-4985-b98b-fc0dd640131e" style="border:3px solid #007bff; border-radius:10px;" />
-</p>
+<div style="display: flex; align-items: center; gap: 10px;">
+  <img width="224" height="224" 
+       alt="logo" 
+       src="https://github.com/user-attachments/assets/8ba1167b-777e-40f3-b542-dfc57e4916f7"
+       style="border:3px solid #007bff; border-radius:10px;" />
+  
+  <img width="224" height="224" 
+       alt="unnamed" 
+       src="https://github.com/user-attachments/assets/d0bc1e8d-5325-4d17-8961-49c704896230"
+       style="border:3px solid #007bff; border-radius:10px;" />
+</div>
+
 
 ---
 
