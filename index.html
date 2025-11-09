@@ -6,6 +6,7 @@
   <title>HTS 2025 — Hack The Shield | BlackXmask</title>
   <meta name="description" content="HTS 2025 — Hack The Shield. Cybersecurity hackathon by BlackXmask. Register on Devpost." />
   <link rel="icon" href="https://github.com/user-attachments/assets/d0bc1e8d-5325-4d17-8961-49c704896230" />
+  <meta name="theme-color" content="#071024" />
 
   <style>
     :root{
@@ -30,6 +31,9 @@
     html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--text);background:var(--bg-dark);overflow-y:auto}
     a{color:inherit}
     img{display:block;max-width:100%;height:auto}
+
+    /* Subtle helper classes */
+    .muted { color: var(--muted); }
 
     /* Background layers */
     body::before{
@@ -67,7 +71,7 @@
     .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start}
     @media (max-width:960px){.hero{grid-template-columns:1fr}.container{padding:16px;margin:20px auto}}
 
-    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);padding:26px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.45)}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);padding:26px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.45);overflow:hidden}
     .hero-head{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
     .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:white;font-weight:700;font-size:13px}
     h1{font-size:34px;margin:0;letter-spacing:-0.5px}
@@ -75,18 +79,18 @@
     .sub{color:var(--muted);margin:12px 0 18px 0;line-height:1.45;min-height:42px}
 
     /* Banner */
-    .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.10);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center;display:flex;align-items:flex-end}
+    .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.10);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center}
     .banner .overlay{height:100%;width:100%;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.24));display:block}
 
     /* Logo */
     .logo{width:160px;height:160px;border-radius:16px;border:2px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,163,255,0.12);overflow:hidden;position:relative}
     .logo:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 26px 80px rgba(0,163,255,0.18)}
     .logo img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
-    .logo .online{position:absolute;right:12px;bottom:12px;width:14px;height:14px;border-radius:999px;border:2px solid rgba(0,0,0,0.45);background:var(--online-green);box-shadow:0 0 12px rgba(57,211,83,0.35);}
+    .logo .online{position:absolute;right:12px;bottom:12px;width:14px;height:14px;border-radius:999px;border:2px solid rgba(0,0,0,0.45);background:var(--online-green);box-shadow:0 0 12px rgba(57,211,83,0.2)}
 
     /* CTA */
     .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .btn{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));padding:12px 18px;border-radius:12px;color:white;font-weight:800;text-decoration:none;border:none;cursor:pointer;display:inline-block;box-shadow:0 8px 30px rgba(8,12,30,0.6)}
+    .btn{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));padding:12px 18px;border-radius:12px;color:white;font-weight:800;text-decoration:none;border:none;cursor:pointer;display:inline-block}
     .btn:hover{transform:translateY(-6px);box-shadow:0 28px 64px rgba(0,163,255,0.22)}
     .ghost{padding:10px 14px;border-radius:12px;border:1px solid var(--glass-border);background:transparent;color:var(--muted);text-decoration:none;font-weight:700}
 
@@ -153,19 +157,19 @@
           <span class="eyebrow">🛡️ HTS 2025</span>
           <div style="flex:1">
             <h1 class="glow">Hack The Shield — Empowering Cybersecurity Talent</h1>
-            <p class="sub" id="subtitle">Join BlackXmask for a hands-on, beginner-friendly to advanced cybersecurity hackathon. Win certificates, build projects, and gain mentorship.</p>
+            <p class="sub muted" id="subtitle">Join BlackXmask for a hands-on, beginner-friendly to advanced cybersecurity hackathon. Win certificates, build projects, and gain mentorship.</p>
           </div>
         </div>
 
         <!-- Banner: replace URL with a hosted banner image -->
-        <a class="banner" id="banner" href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener" aria-label="Visit Devpost page" style="background-image: url('dev.png')">
+        <a class="banner" id="banner" href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Devpost page" style="background-image: url('dev.png')">
           <div class="overlay" aria-hidden="true"></div>
         </a>
 
         <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:14px;flex-wrap:wrap">
           <div style="min-width:220px">
             <div class="cta" role="region" aria-label="Call to action">
-              <a class="btn" id="registerBtn" href="https://hts-2k25.devpost.com/?ref_content=default&ref_feature=challenge&ref_medium=portfolio" target="_blank" rel="noopener">Register on Devpost</a>
+              <a class="btn" id="registerBtn" href="https://hts-2k25.devpost.com/?ref_content=default&ref_feature=challenge&ref_medium=portfolio" target="_blank" rel="noopener noreferrer">Register on Devpost</a>
               <a class="ghost" href="mailto:blackxmask.official@gmail.com">Contact</a>
             </div>
 
@@ -175,7 +179,7 @@
           </div>
 
           <div style="display:flex;gap:12px;align-items:center;position:relative">
-            <a class="logo" title="HTS Logo" href="https://github.com/blackXmask" target="_blank" rel="noopener" aria-label="BlackXmask profile">
+            <a class="logo" title="HTS Logo" href="https://github.com/blackXmask" target="_blank" rel="noopener noreferrer" aria-label="BlackXmask profile">
               <img src="https://github.com/blackxmask.png" alt="BlackXmask avatar" />
               <div class="online" aria-hidden="true"></div>
             </a>
@@ -199,10 +203,10 @@
 
         <h4 style="margin:6px 0">Quick Links</h4>
         <div class="socials" style="display:flex;gap:8px;flex-wrap:wrap">
-          <a href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener">Devpost</a>
-          <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="https://www.youtube.com/@ah_blackmask" target="_blank" rel="noopener">YouTube</a>
-          <a href="https://tiktok.com/@blackxmask03" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener noreferrer">Devpost</a>
+          <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.youtube.com/@ah_blackmask" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a href="https://tiktok.com/@blackxmask03" target="_blank" rel="noopener noreferrer">TikTok</a>
         </div>
 
         <hr style="border:none;height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent);margin:12px 0">
@@ -267,10 +271,10 @@
       <h3>Contact & Follow</h3>
       <p class="muted">For sponsorships, contact <a href="mailto:blackxmask.official@gmail.com" style="color:var(--text);text-decoration:underline">blackxmask.official@gmail.com</a>.</p>
       <div class="socials" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
-        <a href="https://tiktok.com/@blackxmask03" target="_blank" rel="noopener">TikTok</a>
-        <a href="https://whatsapp.com/channel/0029Vb5zVHiDTkK4DQoYQS3q" target="_blank" rel="noopener">WhatsApp</a>
-        <a href="https://www.youtube.com/@ah_blackmask" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://tiktok.com/@blackxmask03" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a href="https://whatsapp.com/channel/0029Vb5zVHiDTkK4DQoYQS3q" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="https://www.youtube.com/@ah_blackmask" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank" rel="noopener noreferrer">LinkedIn</a>
       </div>
     </section>
 
@@ -280,10 +284,10 @@
   </main>
 
   <!-- Floating controls: gradient presets + speed toggle -->
-  <div class="controls" aria-hidden="false">
+  <div class="controls">
     <div class="control-toggle">
-      <button id="presetBtn" class="control-btn" title="Cycle gradient">Gradient</button>
-      <button id="pauseAnim" class="control-btn" title="Pause animations">Pause</button>
+      <button id="presetBtn" class="control-btn" title="Cycle gradient" type="button">Gradient</button>
+      <button id="pauseAnim" class="control-btn" title="Pause animations" type="button">Pause</button>
     </div>
   </div>
 
@@ -316,10 +320,15 @@
         }
       }
 
+      let resizeTimeout;
       function resize(){
-        W = canvas.width = innerWidth;
-        H = canvas.height = innerHeight;
-        makeParticles();
+        // debounce quick resizes
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(()=>{
+          W = canvas.width = innerWidth;
+          H = canvas.height = innerHeight;
+          makeParticles();
+        }, 120);
       }
       addEventListener('resize', resize);
 
@@ -341,7 +350,7 @@
           // attraction to mouse
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
-          const dist = Math.sqrt(dx*dx + dy*dy);
+          const dist = Math.sqrt(dx*dx + dy*dy) || 1;
           if(mouse.x>-9998 && dist < 140){
             const force = (140 - dist) / 140;
             p.vx += (dx/dist) * 0.08 * force;
@@ -366,7 +375,7 @@
             const a = particles[i], b = particles[j];
             const dx = a.x-b.x, dy = a.y-b.y;
             const d2 = dx*dx + dy*dy;
-            if(d2 < 9000){ // ~95px
+            if(d2 < 9000){ // ~95px squared
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(a.x,a.y);
@@ -380,6 +389,7 @@
       }
 
       resize();
+      makeParticles();
       loop();
     })();
 
@@ -441,6 +451,7 @@
     /* ---------------- Countdown logic (PST -> UTC) ---------------- */
     (function(){
       // PST (UTC-8) midnight times provided in the page description:
+      // 15 Nov 2025 00:00 PST == 2025-11-15T08:00:00Z
       const registrationUTC = new Date('2025-11-15T08:00:00Z'); // 15 Nov 2025 00:00 PST
       const round1UTC = new Date('2025-11-16T08:00:00Z'); // 16 Nov 2025 00:00 PST
       const countdownEl = document.getElementById('countdown');
@@ -498,7 +509,7 @@
       let rx=0, ry=0;
       addEventListener('pointermove', e=>{
         const cx = innerWidth/2, cy = innerHeight/2;
-        rx = ((e.clientX - cx) / cx) * 6; // max translate %
+        rx = ((e.clientX - cx) / cx) * 6; // max translate px
         ry = ((e.clientY - cy) / cy) * 6;
         gradient.style.transform = `translate3d(${rx}px, ${ry}px, 0) rotate(${rx*0.02}deg)`;
       });
