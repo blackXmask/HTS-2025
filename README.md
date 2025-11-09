@@ -1,19 +1,17 @@
 <div align="center">
+<img width="1920" height="268" alt="Screenshot_2025-11-02_13-53-16" src="https://github.com/user-attachments/assets/45789aac-6c57-4397-b316-1c7a5d0a8aa3" />
+
 
 # 🛡️ **HTS 2025 — Hack The Shield**
 
 **Empowering innovation in Cybersecurity, Computer Science & IT.**  
 Participants will have the opportunity to **collaborate, innovate, and earn official certificates** recognizing their achievements.  
-*Join the blackXmask community and showcase your skills!*
+*Join the BlackXmask community and showcase your skills!*
 
 ---
+[![Register Now on Devpost](https://img.shields.io/badge/Register%20Now-Devpost-%23007bff?style=for-the-badge&logo=devpost&logoColor=white)](https://hts-2k25.devpost.com/?ref_content=default&ref_feature=challenge&ref_medium=portfolio&_gl=1*1hdz0rh*_gcl_au*MTQ1ODY0MTE5MS4xNzYxODEwNTkz*_ga*MjAzMDE5OTc3NS4xNzYxODEwNTk0*_ga_0YHJK3Y10M*czE3NjI2NzMyNzckbzI5JGcxJHQxNzYyNjczOTgyJGozMiRsMCRoMA..)  
+<div style="display: flex; align-items: center; gap: 10px; justify-content:center;">
 
-<p align="center">
-<div style="display: flex; align-items: center; gap: 10px;">
-  <img width="224" height="224" 
-       alt="logo" 
-       src="https://github.com/user-attachments/assets/8ba1167b-777e-40f3-b542-dfc57e4916f7"
-       style="border:3px solid #007bff; border-radius:10px;" />
   
   <img width="224" height="224" 
        alt="unnamed" 
@@ -21,20 +19,15 @@ Participants will have the opportunity to **collaborate, innovate, and earn offi
        style="border:3px solid #007bff; border-radius:10px;" />
 </div>
 
-
 ---
 
 ## 🗓️ **Important Dates**
 
 | **Event**               | **Date & Time (PST)**          |
 | ----------------------- | ------------------------------ |
-| **Registration Opens**  | **12 November 2025, 12:00 AM** |
 | **Registration Closes** | **15 November 2025, 12:00 AM** |
 | **Round 01 Begins**     | **16 November 2025, 12:00 AM** |
 
----
-
-[![Register Now on Unstop](https://img.shields.io/badge/Register%20Now-Unstop-%23007bff?style=for-the-badge&logo=hack-the-box&logoColor=white)](https://unstop.com/o/KW53eYb?utm_medium=Share&utm_source=abdullah60056&utm_campaign=Online_coding_challenge)
 
 </div>
 
@@ -42,66 +35,138 @@ Participants will have the opportunity to **collaborate, innovate, and earn offi
 
 ## 🎯 **Overview**
 
-**HTS 2025 — Hack The Shield** is a cybersecurity-focused hackathon designed to provide participants with practical, hands-on experience in **cybersecurity, computer science, IT, and teamwork**.  
-Our mission is to empower individuals to solve real-world problems, build secure digital solutions, and grow within the **blackXmask** community.
+**HTS 2025 — Hack The Shield** is a cybersecurity-focused hackathon designed to provide participants with hands-on experience in **cybersecurity, computer science, and IT** through practical challenges.  
+Our mission is to empower individuals to solve real-world problems, build secure solutions, and grow within the **BlackXmask** community.
 
 ---
 
-## 🧩 **Tracks**
 
-- 🕵️‍♂️ **Cybersecurity & Forensics** — Capture the Flag (CTF), digital forensics, and vulnerability detection.  
-- 🤖 **AI & Automation** — Machine learning in cybersecurity, threat analysis, and system automation.  
-- 🌐 **Web & App Security** — Secure web development, ethical hacking, and penetration testing.  
-- 💡 **Open Innovation** — Build creative tech solutions for modern IT and digital challenges.
+## ⚙️ **Guidelines**
 
----
-
-## **Guidelines**
-
-- **Who Can Participate:** Everyone is welcome — no prior experience required!  
-- **Duration:** 3–5 days.  
-- **Scoring:**  
-  - Total score: **100 points**  
-  - Divided into:  
-    - Project development  
-    - Problem-solving challenges  
-    - Daily LinkedIn activity  
-    - Report writing  
-- **Certificates:** Top 50 teams will receive official certificates of achievement.
+- **Who Can Participate:** Everyone is welcome — no prior experience required.  
+- **Team Size:** Maximum **2 members** per team (certificates designed for 2-person teams).  
+- **Duration:** 3–5 days total.  
+- **Scoring Breakdown (100 points total):**  
+  - Challenge rounds (flags/reversing): 50 pts  
+  - Project development: 30 pts  
+  - LinkedIn activity: 10 pts  
+  - Report/documentation: 10 pts  
+- **Team Name:** Each team must have a unique **professional team name**.
 
 ---
 
-## **Rules**
+## 📜 **Rules**
 
 1. Everyone is welcomed and respected.  
-2. Each team must consist of **2 members**.  
-3. All submissions must be the **original work** of participants.  
-4. Daily LinkedIn posts should reflect your progress and learning.  
+2. Teams must consist of **exactly 2 members**.  
+3. Submissions must be **original work**.  
+4. Daily **LinkedIn posts** should reflect progress and learning.  
 5. Reports must follow the official format and be submitted on time.  
-6. Organizers' decisions are **final** regarding judging and evaluation.  
+6. Organizers’ decisions are **final** in all evaluations.  
+
+---
+
+# ⚔️ **Rounds**
+
+## 🧭 Round 1 — “Folder Forensics / Flags + Cryptography” (Beginner)
+
+**Goal:** Locate hidden files and solve beginner-level cryptography puzzles to uncover a total of **9 flags** spread across a large dataset.
+
+**Design:**
+- A ZIP dataset containing thousands of folders and mixed files.  
+- Some flags are **hidden inside files or metadata**, others are **encrypted messages**.  
+- Flags follow the format: `FLAG{teamname_round1_001}` (unique per challenge).  
+- 2 optional hints available (with time or score penalties).  
+- **Time Limit:** 60–90 minutes.  
+- **Scoring:**  
+  - 10 points per valid flag (90 total).  
+  - +10 bonus points for submitting a working automation or decryption script (≤100 lines).
+
+**Tasks may include:**
+- 🔍 **Forensics Challenges:**  
+  - Hidden flags in EXIF data or dotfiles.  
+  - Steganography in images (`strings`, `stegsolve`).  
+  - Zipped or oddly named files (`binwalk`, `grep`, `find`).  
+- 🔐 **Cryptography Challenges:**  
+  - Simple ciphers (Caesar, Base64, XOR, or substitution).  
+  - Encrypted text files requiring pattern recognition.  
+  - Multi-step decoding (e.g., Base64 → hex → plain text).  
+  - Hints provided to identify cipher type or key format.
+
+
+---
+
+## 🧩 Round 2 — “Reverse & Recover” (.exe Reversing) (Intermediate)
+
+**Goal:** Reverse-engineer given clean Windows executables to extract a flag or re-create their logic.
+
+**Safety Note:**  
+All binaries are intentionally safe and clean — **no malware or unethical content**.
+
+**Tasks:**
+- Extract an embedded flag.  
+- Recreate a simple algorithm or validation logic.  
+- Patch binary to reveal flag (advanced).  
+
+**Scoring:**
+- 30 pts for correct flag extraction.  
+- 20 pts for documented reimplementation.  
+- +10 bonus for automation script.  
+
+**Tools Allowed:** IDA Free, Ghidra, radare2, x64dbg, strings, binwalk.  
+**Time Limit:** 2–3 hours.  
+**Submission:** Flag + code + short writeup (screenshots or logs).  
+
+🛡️ *Each team receives a slightly unique binary to reduce plagiarism.*
+
+---
+
+## 💡 Round 3 — “Build a Project / Pitch” (Advanced)
+
+**Goal:** Build and present a mini-project related to cybersecurity, research, or innovation.
+
+**Deliverables:**
+- Repo or ZIP with source code.  
+- README + 2-page report.  
+- 3–5 min demo video.  
+- Optional live presentation (5–10 min).  
+
+**Duration:** 24–72 hours (depending on timeline).  
+
+**Judging Criteria:**
+| Criteria | Weight |
+|----------|--------|
+| Functionality / Demo | 30% |
+| Originality & Impact | 25% |
+| Code Quality | 20% |
+| Documentation | 15% |
+| Presentation | 10% |
+
+**Examples:**  
+- Malware analyzer, security dashboard, privacy tool, CTF generator, secure web app.  
+⚠️ *No real malware or illegal tools — follow ethical guidelines.*
 
 ---
 
 ## 🏆 **Prizes & Recognition**
 
-- 🥇 **Top Teams:** Official certificates and digital recognition.  
-- 💼 **Exposure:** Top projects featured on blackXmask’s official pages.  
-- 🧠 **Experience:** Real-world cybersecurity challenges and mentoring opportunities.
+- 🥇 **Top Teams:** Official certificates & digital recognition.  
+- 💼 **Exposure:** Featured on BlackXmask social pages.  
+- 🧠 **Experience:** Real-world cybersecurity practice + mentorship.
 
 ---
 
 ## 🤝 **Sponsorship & Partnership**
 
-We welcome **industry partners, tech organizations, and educational institutions** to support HTS 2025 through sponsorships, collaborations, and mentorship.
+We welcome **industry partners, tech orgs, and universities** to collaborate and support HTS 2025.
 
-**Interested in sponsoring?**  
-📧 Contact us at: `blackxmask.official@gmail.com`  
-or connect via [LinkedIn](https://www.linkedin.com/in/abdullah-as-12s2005)
+📧 **Contact:** `blackxmask.official@gmail.com`  
+🔗 [LinkedIn](https://www.linkedin.com/in/abdullah-as-12s2005)
 
-Sponsorship benefits include:
-- Brand placement on event materials and digital media.  
-- Direct engagement with talented developers and cybersecurity enthusiasts.  
-- Opportunities to host workshops or challenges during the event.  
+**Sponsorship Benefits:**
+- Brand placement on banners & digital materials.  
+- Access to top cybersecurity talent.  
+- Option to host workshops or custom challenges.  
 
 ---
 
@@ -117,6 +182,6 @@ Sponsorship benefits include:
 ---
 
 ### 💬 *“Hack. Learn. Build. Protect.”*  
-Proudly presented by **blackXmask**
+Proudly presented by **BlackXmask**
 
 </div>
