@@ -1,19 +1,3 @@
-<!--
-HTS 2025 — Single-file landing page (HTML + CSS + JS)
-Drop this file into your GitHub repo (e.g., docs/index.html) or serve directly.
-Features included:
-- Animated multi-stop gradient background
-- Particle animation (canvas) for subtle motion
-- Animated banner / logo with glow
-- Countdown timer to Registration Close (15 Nov 2025 00:00 PST) and Round 1 (16 Nov 2025 00:00 PST)
-- Typewriter subtitle, smooth entrance animations
-- Interactive CTA (Register on Devpost) with hover effects
-- Responsive layout and accessible markup
-- Comments explain where to change images/links/text
-
-Note: Dates in the countdown are converted from PST (UTC-8) to UTC internally
--->
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -21,141 +5,168 @@ Note: Dates in the countdown are converted from PST (UTC-8) to UTC internally
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTS 2025 — Hack The Shield | BlackXmask</title>
   <meta name="description" content="HTS 2025 — Hack The Shield. Cybersecurity hackathon by BlackXmask. Register on Devpost." />
-
-  <!-- Favicon (optional) -->
   <link rel="icon" href="https://github.com/user-attachments/assets/d0bc1e8d-5325-4d17-8961-49c704896230" />
 
   <style>
     :root{
-      --bg-dark: #0b1020;
-      --card: rgba(255,255,255,0.04);
-      --glass: rgba(255,255,255,0.05);
-      --accent: #007bff;
-      --accent-2: #8a2be2;
+      --bg-dark: #071024;
+      --card: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.04);
       --glass-border: rgba(255,255,255,0.06);
       --text: #e7eefc;
-      --muted: rgba(231,238,252,0.6);
+      --muted: rgba(231,238,252,0.62);
+      --accent-a: #00a3ff;
+      --accent-b: #8a2be2;
+      --accent-c: #ff2d95;
+      --radius: 12px;
+      --max-width: 1100px;
+      --motion-duration: 18s;
+      --ui-ease: cubic-bezier(.16,.84,.36,1);
     }
 
-    /* Reset-ish */
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--text);background:var(--bg-dark);}
+    /* Reset + base */
+    * { box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--text);background:var(--bg-dark);overflow-y:auto}
+    a{color:inherit}
+    img{display:block;max-width:100%;height:auto}
 
-    /* Animated gradient background */
+    /* Background layers */
     body::before{
       content:"";
-      position:fixed;inset:0;z-index:-3;
-      background:linear-gradient(120deg,#0f1724 0%, #071126 15%, #0a1b2b 35%, #071126 70%, #0f1724 100%);
-      transition:opacity .5s linear;
+      position:fixed;inset:0;z-index:-4;
+      background:linear-gradient(120deg,#071022 0%, #051322 25%, #071024 60%, #041016 100%);
+      transition:opacity .35s linear;
     }
 
-    /* Multi-stop animated gradient layer */
     .animated-gradient{
-      position:fixed;inset:0;z-index:-2;mix-blend-mode:screen;opacity:0.9;pointer-events:none;
-      background:linear-gradient(45deg, rgba(0,123,255,0.12), rgba(138,43,226,0.12), rgba(255,0,128,0.06));
-      background-size:600% 600%;
-      animation:gradientShift 18s ease infinite;
-      filter:blur(60px) contrast(1.05) saturate(1.2);
+      position:fixed;inset:-20% -20% -20% -20%;z-index:-3;mix-blend-mode:screen;opacity:0.95;pointer-events:none;
+      background:linear-gradient(45deg, rgba(0,163,255,0.12), rgba(138,43,226,0.12), rgba(255,45,149,0.06));
+      background-size: 600% 600%;
+      animation:gradientShift var(--motion-duration) var(--ui-ease) infinite;
+      filter:blur(80px) contrast(1.05) saturate(1.15);
+      transition:filter .3s;
     }
     @keyframes gradientShift{
       0%{background-position:0% 50%}
+      25%{background-position:50% 20%}
       50%{background-position:100% 50%}
+      75%{background-position:50% 80%}
       100%{background-position:0% 50%}
     }
 
-    /* Particle canvas sits behind content */
-    canvas.particles{position:fixed;inset:0;z-index:-1;opacity:0.55}
+    /* Subtle grain overlay for texture */
+    .grain{position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px);background-size:3px 3px;opacity:0.25}
 
-    .container{max-width:1100px;margin:40px auto;padding:28px;}
+    /* Particles canvas */
+    canvas.particles{position:fixed;inset:0;z-index:-1;opacity:0.6;pointer-events:none;will-change:transform}
+
+    .container{max-width:var(--max-width);margin:40px auto;padding:28px}
 
     /* Header / Hero */
-    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center}
-    @media (max-width:900px){.hero{grid-template-columns:1fr;}.container{padding:16px}}
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start}
+    @media (max-width:960px){.hero{grid-template-columns:1fr}.container{padding:16px;margin:20px auto}}
 
-    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);padding:26px;border-radius:16px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);padding:26px;border-radius:16px;box-shadow:0 10px 40px rgba(2,6,23,0.6);backdrop-filter: blur(6px)}
+    .hero-head{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+    .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:white;font-weight:700;font-size:13px}
+    h1{font-size:34px;margin:0;letter-spacing:-0.5px}
+    .glow{color:var(--text);text-shadow:0 10px 30px rgba(0,163,255,0.08)}
+    .sub{color:var(--muted);margin:12px 0 18px 0;line-height:1.45;min-height:42px}
 
-    h1{font-size:32px;margin:0 0 6px 0;letter-spacing:-0.5px}
-    .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;font-weight:600;font-size:13px}
-    .sub{color:var(--muted);margin:12px 0 18px 0;line-height:1.4}
+    /* Banner */
+    .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.10);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center center;display:block}
+    .banner .overlay{height:100%;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.14))}
 
-    /* Banner image */
-    .banner{width:100%;height:140px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,123,255,0.12);box-shadow:0 8px 28px rgba(0,123,255,0.06) inset;background-size:cover;background-position:center}
-
-    /* Logo round */
-    .logo{width:160px;height:160px;border-radius:14px;border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,123,255,0.15);}
-    .logo img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+    /* Logo */
+    .logo{width:160px;height:160px;border-radius:16px;border:2px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,163,255,0.12);overflow:hidden;transition:transform .35s var(--ui-ease), box-shadow .35s var(--ui-ease)}
+    .logo:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 26px 80px rgba(0,163,255,0.18)}
+    .logo img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
 
     /* CTA */
-    .cta{display:flex;gap:12px;align-items:center}
-    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:12px 18px;border-radius:12px;color:white;font-weight:700;text-decoration:none;border:none;cursor:pointer;box-shadow:0 14px 30px rgba(10,132,255,0.15);transform:translateY(0);transition:transform .18s ease,box-shadow .18s}
-    .btn:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(10,132,255,0.22)}
-    .ghost{padding:10px 14px;border-radius:12px;border:1px solid var(--glass-border;background:transparent;color:var(--muted);text-decoration:none}
+    .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .btn{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));padding:12px 18px;border-radius:12px;color:white;font-weight:800;text-decoration:none;border:none;cursor:pointer;display:inline-block;transition:transform .22s var(--ui-ease), box-shadow .22s var(--ui-ease);box-shadow:0 6px 20px rgba(0,163,255,0.12)}
+    .btn:hover{transform:translateY(-6px);box-shadow:0 28px 64px rgba(0,163,255,0.22)}
+    .ghost{padding:10px 14px;border-radius:12px;border:1px solid var(--glass-border);background:transparent;color:var(--muted);text-decoration:none;font-weight:700}
 
     /* Countdown */
-    .countdown{display:flex;gap:10px;margin-top:12px}
-    .countdown .item{background:var(--card);padding:10px 12px;border-radius:10px;min-width:68px;text-align:center}
-    .countdown .num{font-size:18px;font-weight:700}
-    .countdown small{display:block;color:var(--muted);font-size:12px}
+    .countdown{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    .countdown .item{background:var(--card);padding:10px 12px;border-radius:10px;min-width:68px;text-align:center;box-shadow:inset 0 -6px 14px rgba(0,0,0,0.25)}
+    .countdown .num{font-size:18px;font-weight:800}
+    .countdown small{display:block;color:var(--muted);font-size:12px;opacity:0.9}
 
-    /* Sections */
+    /* Right card */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid var(--glass-border);box-shadow:0 8px 30px rgba(0,0,0,0.45)}
+    .card h3{margin:0 0 8px 0}
+
+    /* Grid sections */
     section{margin-top:22px}
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
     @media (max-width:720px){.grid{grid-template-columns:1fr}}
 
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid var(--glass-border)}
-
-    /* Fancy list */
     .rules li{margin:8px 0}
 
-    /* Rounds style */
+    /* Rounds */
     .round-title{display:flex;align-items:center;gap:10px;font-weight:800}
-    .flag{background:rgba(0,0,0,0.25);padding:6px 10px;border-radius:8px;font-family:monospace;color:#dbeafe}
+    .flag{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:6px 10px;border-radius:8px;font-family:monospace;color:#dbeafe}
 
     footer{padding:26px 0;color:var(--muted);text-align:center}
 
-    /* Subtle entrance animations */
-    .fade-in{opacity:0;transform:translateY(8px);animation:enter .7s forwards}
+    /* Entrance */
+    .fade-in{opacity:0;transform:translateY(10px);animation:enter .7s forwards}
     .fade-in.delay{animation-delay:.12s}
     @keyframes enter{to{opacity:1;transform:none}}
 
-    /* Neon glow on headings */
-    .glow{color:var(--text);text-shadow:0 6px 30px rgba(0,123,255,0.08)}
+    /* Little controls */
+    .controls{position:fixed;right:18px;bottom:18px;z-index:40;display:flex;gap:10px;align-items:center}
+    .control-btn{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.04);color:var(--text);padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:700;backdrop-filter: blur(6px)}
+    .control-toggle{display:flex;align-items:center;gap:8px}
 
-    /* small helpers */
-    .muted{color:var(--muted)}
-    .socials{display:flex;gap:8px;flex-wrap:wrap}
-    .socials a{display:inline-block;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);text-decoration:none;color:var(--text);font-weight:600}
+    /* Responsive tweaks */
+    @media (max-width:520px){
+      .logo{width:110px;height:110px}
+      .hero-card{padding:18px}
+      h1{font-size:22px}
+    }
 
+    /* Accessibility focus */
+    a:focus, button:focus { outline:3px solid rgba(0,163,255,0.16); outline-offset:3px; border-radius:8px }
   </style>
 </head>
 <body>
-  <div class="animated-gradient"></div>
-  <canvas class="particles" id="particles"></canvas>
+  <div class="animated-gradient" id="animatedGradient" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <canvas class="particles" id="particles" aria-hidden="true"></canvas>
 
-  <main class="container">
+  <main class="container" role="main">
     <div class="hero">
-      <div class="hero-card fade-in">
-        <span class="eyebrow">🛡️ HTS 2025</span>
-        <h1 class="glow">Hack The Shield — Empowering Cybersecurity Talent</h1>
-        <p class="sub">Join BlackXmask for a hands-on, beginner-friendly to advanced cybersecurity hackathon. Win certificates, build projects, and gain mentorship.</p>
+      <div class="hero-card fade-in" id="heroCard">
+        <div class="hero-head">
+          <span class="eyebrow">🛡️ HTS 2025</span>
+          <div style="flex:1">
+            <h1 class="glow">Hack The Shield — Empowering Cybersecurity Talent</h1>
+            <p class="sub" id="subtitle">Join BlackXmask for a hands-on, beginner-friendly to advanced cybersecurity hackathon. Win certificates, build projects, and gain mentorship.</p>
+          </div>
+        </div>
 
-        <!-- Banner: replace src below with your GitHub banner if hosted publicly -->
-        <div class="banner" id="banner" style="background-image: url('https://github.com/user-attachments/assets/45789aac-6c57-4397-b316-1c7a5d0a8aa3');"></div>
+        <!-- Banner: replace URL with a hosted banner image -->
+        <a class="banner" id="banner" href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener" aria-label="Visit Devpost page" style="background-image: url('https://github.com/user-attachments/assets/45789aac-6c57-4397-b316-1c7a5d0a8aa3');">
+          <div class="overlay" aria-hidden="true"></div>
+        </a>
 
         <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:14px;flex-wrap:wrap">
-          <div>
-            <div class="cta">
-              <a class="btn" href="https://hts-2k25.devpost.com/?ref_content=default&ref_feature=challenge&ref_medium=portfolio" target="_blank" rel="noopener">Register on Devpost</a>
+          <div style="min-width:220px">
+            <div class="cta" role="region" aria-label="Call to action">
+              <a class="btn" id="registerBtn" href="https://hts-2k25.devpost.com/?ref_content=default&ref_feature=challenge&ref_medium=portfolio" target="_blank" rel="noopener">Register on Devpost</a>
               <a class="ghost" href="mailto:blackxmask.official@gmail.com">Contact</a>
             </div>
 
-            <div class="countdown" id="countdown">
-              <!-- JS will populate countdown blocks -->
+            <div class="countdown" id="countdown" aria-live="polite" aria-atomic="true">
+              <!-- JS will populate countdown -->
             </div>
           </div>
 
           <div style="display:flex;gap:12px;align-items:center">
-            <div class="logo" title="HTS Logo">
+            <div class="logo" title="HTS Logo" aria-hidden="false">
               <img src="https://github.com/user-attachments/assets/d0bc1e8d-5325-4d17-8961-49c704896230" alt="HTS Logo" />
             </div>
             <div style="text-align:right">
@@ -167,19 +178,18 @@ Note: Dates in the countdown are converted from PST (UTC-8) to UTC internally
 
       </div>
 
-      <!-- Right column: quick info -->
-      <aside class="card fade-in delay">
-        <h3 style="margin-top:0">Important Dates (PST)</h3>
+      <aside class="card fade-in delay" aria-labelledby="importantDates">
+        <h3 id="importantDates" style="margin-top:0">Important Dates (PST)</h3>
         <p class="muted">Registration Closes: <strong>15 November 2025, 12:00 AM (PST)</strong><br>Round 1 Begins: <strong>16 November 2025, 12:00 AM (PST)</strong></p>
 
         <hr style="border:none;height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent);margin:12px 0">
 
         <h4 style="margin:6px 0">Quick Links</h4>
-        <div class="socials">
-          <a href="https://hts-2k25.devpost.com/" target="_blank">Devpost</a>
-          <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank">LinkedIn</a>
-          <a href="https://www.youtube.com/@ah_blackmask" target="_blank">YouTube</a>
-          <a href="https://tiktok.com/@blackxmask03" target="_blank">TikTok</a>
+        <div class="socials" style="display:flex;gap:8px;flex-wrap:wrap">
+          <a href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener">Devpost</a>
+          <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.youtube.com/@ah_blackmask" target="_blank" rel="noopener">YouTube</a>
+          <a href="https://tiktok.com/@blackxmask03" target="_blank" rel="noopener">TikTok</a>
         </div>
 
         <hr style="border:none;height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent);margin:12px 0">
@@ -244,10 +254,10 @@ Note: Dates in the countdown are converted from PST (UTC-8) to UTC internally
       <h3>Contact & Follow</h3>
       <p class="muted">For sponsorships, contact <a href="mailto:blackxmask.official@gmail.com" style="color:var(--text);text-decoration:underline">blackxmask.official@gmail.com</a>.</p>
       <div class="socials" style="margin-top:10px">
-        <a href="https://tiktok.com/@blackxmask03" target="_blank">TikTok</a>
-        <a href="https://whatsapp.com/channel/0029Vb5zVHiDTkK4DQoYQS3q" target="_blank">WhatsApp</a>
-        <a href="https://www.youtube.com/@ah_blackmask" target="_blank">YouTube</a>
-        <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank">LinkedIn</a>
+        <a href="https://tiktok.com/@blackxmask03" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://whatsapp.com/channel/0029Vb5zVHiDTkK4DQoYQS3q" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://www.youtube.com/@ah_blackmask" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </section>
 
@@ -256,80 +266,236 @@ Note: Dates in the countdown are converted from PST (UTC-8) to UTC internally
     </footer>
   </main>
 
+  <!-- Floating controls: gradient presets + speed toggle -->
+  <div class="controls" aria-hidden="false">
+    <div class="control-toggle">
+      <button id="presetBtn" class="control-btn" title="Cycle gradient">Gradient</button>
+      <button id="pauseAnim" class="control-btn" title="Pause animations">Pause</button>
+    </div>
+  </div>
+
   <script>
-    /* ---------- Particle system (simple & lightweight) ---------- */
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    let W = canvas.width = innerWidth;
-    let H = canvas.height = innerHeight;
+    /* ---------------- Particles: lightweight, interactive ---------------- */
+    (function(){
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = innerWidth;
+      let H = canvas.height = innerHeight;
+      let particles = [];
+      // scale with area but cap for performance
+      const base = Math.round((W*H)/90000);
+      const maxAllowed = 120;
+      const PCOUNT = Math.min(maxAllowed, Math.max(18, base));
 
-    const particles = [];
-    const PCOUNT = Math.round((W*H)/90000); // scale with area
+      function rand(min,max){ return Math.random()*(max-min)+min; }
 
-    function rand(min,max){return Math.random()*(max-min)+min}
-
-    function makeParticles(){
-      particles.length = 0;
-      for(let i=0;i<PCOUNT;i++){
-        particles.push({x:rand(0,W),y:rand(0,H),vx:rand(-0.2,0.2),vy:rand(-0.1,0.1),r:rand(0.6,2.2),alpha:rand(0.08,0.3)})
+      function makeParticles(){
+        particles = [];
+        for(let i=0;i<PCOUNT;i++){
+          particles.push({
+            x: rand(0,W),
+            y: rand(0,H),
+            vx: rand(-0.35,0.35),
+            vy: rand(-0.18,0.18),
+            r: rand(0.6,2.6),
+            alpha: rand(0.06,0.32)
+          });
+        }
       }
-    }
 
-    function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;makeParticles();}
-    addEventListener('resize',resize);
-
-    function loop(){
-      ctx.clearRect(0,0,W,H);
-      for(const p of particles){
-        p.x += p.vx; p.y += p.vy;
-        if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
-        ctx.beginPath(); ctx.globalAlpha=p.alpha; ctx.fillStyle='white'; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      function resize(){
+        W = canvas.width = innerWidth;
+        H = canvas.height = innerHeight;
+        makeParticles();
       }
-      ctx.globalAlpha=0.12;
-      requestAnimationFrame(loop);
-    }
+      addEventListener('resize', resize);
 
-    resize(); loop();
+      let mouse = {x:-9999,y:-9999,active:false};
+      addEventListener('pointermove', (e)=>{ mouse.x = e.clientX; mouse.y = e.clientY; });
+      addEventListener('pointerdown', ()=>{ mouse.active = true; setTimeout(()=>mouse.active=false,220) });
 
-    /* ---------- Countdown logic ---------- */
-    // Convert given PST datetimes (00:00 PST) into UTC ISO strings.
-    // PST is UTC-8 (standard time). 15 Nov 2025 00:00 PST => 2025-11-15T08:00:00Z
-    const registrationUTC = new Date('2025-11-15T08:00:00Z');
-    const round1UTC = new Date('2025-11-16T08:00:00Z');
+      function loop(){
+        ctx.clearRect(0,0,W,H);
+        // simple connect lines
+        for(let i=0;i<particles.length;i++){
+          const p = particles[i];
+          p.x += p.vx; p.y += p.vy;
+          if(p.x<0) p.x = W;
+          if(p.x>W) p.x = 0;
+          if(p.y<0) p.y = H;
+          if(p.y>H) p.y = 0;
 
-    function makeBlock(label, days, hours, mins, secs){
-      return `<div class="item"><div class="num">${days}</div><small>${label}</small></div>`;
-    }
+          // attraction to mouse
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if(mouse.x>-9998 && dist < 140){
+            const force = (140 - dist) / 140;
+            p.vx += (dx/dist) * 0.08 * force;
+            p.vy += (dy/dist) * 0.06 * force;
+          } else {
+            // gentle damping
+            p.vx *= 0.995; p.vy *= 0.995;
+          }
 
-    function updateCountdown(){
-      const now = new Date();
-      const target = now < registrationUTC ? registrationUTC : (now < round1UTC ? round1UTC : null);
-      const container = document.getElementById('countdown');
-      if(!target){ container.innerHTML = '<div class="muted">Event in progress or finished</div>'; return }
-      const diff = Math.max(0, Math.floor((target - now)/1000));
-      const days = Math.floor(diff/86400);
-      const hours = Math.floor((diff%86400)/3600);
-      const mins = Math.floor((diff%3600)/60);
-      const secs = diff%60;
-      container.innerHTML = `<div class="item"><div class="num">${String(days).padStart(2,'0')}</div><small>Days</small></div>
-        <div class="item"><div class="num">${String(hours).padStart(2,'0')}</div><small>Hours</small></div>
-        <div class="item"><div class="num">${String(mins).padStart(2,'0')}</div><small>Minutes</small></div>
-        <div class="item"><div class="num">${String(secs).padStart(2,'0')}</div><small>Seconds</small></div>`;
-    }
-    updateCountdown(); setInterval(updateCountdown,1000);
+          ctx.beginPath();
+          ctx.globalAlpha = p.alpha;
+          ctx.fillStyle = "#ffffff";
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+          ctx.fill();
+        }
 
-    /* ---------- Small UI niceties: typewriter subtitle ---------- */
+        // draw connecting lines for close pairs
+        ctx.globalAlpha = 0.08;
+        ctx.strokeStyle = "rgba(255,255,255,0.08)";
+        for(let i=0;i<particles.length;i++){
+          for(let j=i+1;j<particles.length;j++){
+            const a = particles[i], b = particles[j];
+            const dx = a.x-b.x, dy = a.y-b.y;
+            const d2 = dx*dx + dy*dy;
+            if(d2 < 9000){ // ~95px
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(a.x,a.y);
+              ctx.lineTo(b.x,b.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        requestAnimationFrame(loop);
+      }
+
+      resize();
+      loop();
+    })();
+
+    /* ---------------- Dynamic gradient presets & controls ---------------- */
+    (function(){
+      const node = document.getElementById('animatedGradient');
+      const presets = [
+        ['#00a3ff','#8a2be2','#ff2d95'],
+        ['#00f5a0','#00a3ff','#5a4de8'],
+        ['#ff6b6b','#ff9f43','#ffd166'],
+        ['#7cf2ff','#9dffb9','#bfa0ff'],
+      ];
+      let idx = 0;
+      const presetBtn = document.getElementById('presetBtn');
+      const pauseBtn = document.getElementById('pauseAnim');
+      let playing = true;
+
+      function applyPreset(i){
+        const [a,b,c] = presets[i % presets.length];
+        node.style.background = `linear-gradient(45deg, ${hexToRgba(a,0.12)}, ${hexToRgba(b,0.12)}, ${hexToRgba(c,0.06)})`;
+        // also set CSS accent vars to keep UI cohesive
+        document.documentElement.style.setProperty('--accent-a', a);
+        document.documentElement.style.setProperty('--accent-b', b);
+        document.documentElement.style.setProperty('--accent-c', c);
+      }
+
+      function hexToRgba(hex,alpha){
+        const h = hex.replace('#','');
+        const bigint = parseInt(h,16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `rgba(${r},${g},${b},${alpha})`;
+      }
+
+      presetBtn.addEventListener('click', ()=>{
+        idx = (idx + 1) % presets.length;
+        applyPreset(idx);
+      });
+
+      pauseBtn.addEventListener('click', ()=>{
+        playing = !playing;
+        node.style.animationPlayState = playing ? 'running' : 'paused';
+        pauseBtn.textContent = playing ? 'Pause' : 'Resume';
+      });
+
+      // cycle automatically every 16s for live feel
+      let autoCycle = setInterval(()=>{ idx=(idx+1)%presets.length; applyPreset(idx); }, 16000);
+
+      // initialize
+      applyPreset(idx);
+
+      // stop auto cycle on user interaction for 30s
+      [presetBtn, pauseBtn].forEach(el=>{
+        el.addEventListener('click', ()=>{ clearInterval(autoCycle); autoCycle = setInterval(()=>{ idx=(idx+1)%presets.length; applyPreset(idx); }, 18000); });
+      });
+    })();
+
+    /* ---------------- Countdown logic (PST -> UTC) ---------------- */
+    (function(){
+      // PST (UTC-8) midnight times provided in the page description:
+      const registrationUTC = new Date('2025-11-15T08:00:00Z'); // 15 Nov 2025 00:00 PST
+      const round1UTC = new Date('2025-11-16T08:00:00Z'); // 16 Nov 2025 00:00 PST
+      const countdownEl = document.getElementById('countdown');
+
+      function formatBlock(label, val){
+        return `<div class="item" role="group" aria-label="${label}">${val}</div>`;
+      }
+
+      function update(){
+        const now = new Date();
+        const target = now < registrationUTC ? registrationUTC : (now < round1UTC ? round1UTC : null);
+        if(!target){
+          countdownEl.innerHTML = '<div class="muted">Event in progress or finished</div>';
+          return;
+        }
+        const diff = Math.max(0, Math.floor((target - now)/1000));
+        const days = Math.floor(diff/86400);
+        const hours = Math.floor((diff%86400)/3600);
+        const mins = Math.floor((diff%3600)/60);
+        const secs = diff%60;
+        countdownEl.innerHTML =
+          `<div class="item"><div class="num">${String(days).padStart(2,'0')}</div><small>Days</small></div>
+           <div class="item"><div class="num">${String(hours).padStart(2,'0')}</div><small>Hours</small></div>
+           <div class="item"><div class="num">${String(mins).padStart(2,'0')}</div><small>Minutes</small></div>
+           <div class="item"><div class="num">${String(secs).padStart(2,'0')}</div><small>Seconds</small></div>`;
+      }
+      update();
+      setInterval(update, 1000);
+    })();
+
+    /* ---------------- Small UI niceties: typewriter & entrance delays ---------------- */
     (function typewriter(){
-      const el = document.querySelector('.sub');
+      const el = document.getElementById('subtitle');
+      if(!el) return;
       const text = el.textContent.trim();
       el.textContent = '';
       let i=0;
-      function step(){ if(i<=text.length){el.textContent = text.slice(0,i); i++; setTimeout(step,22)} }
+      function step(){ if(i<=text.length){ el.textContent = text.slice(0,i); i++; setTimeout(step,16) } }
       step();
     })();
 
-    /* ---------- Smooth entrance toggles for elements already present ---------- */
-    document.querySelectorAll('.fade-in').forEach((el,idx)=>{ el.style.animationDelay = (0.06*idx)+'s' });
+    (function entranceDelay(){
+      document.querySelectorAll('.fade-in').forEach((el,idx)=>{ el.style.animationDelay = (0.06*idx)+'s' });
+    })();
+
+    /* ---------------- Simple accessibility helper: prefers-reduced-motion respect ---------------- */
+    (function reduceMotionCheck(){
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        // Pause heavy animations
+        document.getElementById('animatedGradient').style.animation = 'none';
+        document.getElementById('particles').style.display = 'none';
+        document.querySelectorAll('.fade-in').forEach(e => { e.style.transition = 'none'; e.style.animation = 'none'; e.style.opacity = 1; });
+      }
+    })();
+
+    /* ---------------- Extra: gentle parallax effect on mouse move ---------------- */
+    (function parallax(){
+      const gradient = document.getElementById('animatedGradient');
+      let rx=0, ry=0;
+      addEventListener('pointermove', e=>{
+        const cx = innerWidth/2, cy = innerHeight/2;
+        rx = ((e.clientX - cx) / cx) * 6; // max translate %
+        ry = ((e.clientY - cy) / cy) * 6;
+        gradient.style.transform = `translate3d(${rx}px, ${ry}px, 0) rotate(${rx*0.02}deg)`;
+      });
+      // subtle return when mouse leaves
+      addEventListener('pointerleave', ()=>{ gradient.style.transform = ''; });
+    })();
 
   </script>
 </body>
