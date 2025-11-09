@@ -2,38 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>HTS 2025 — Hack The Shield | BlackXmask</title>
   <meta name="description" content="HTS 2025 — Hack The Shield. Cybersecurity hackathon by BlackXmask. Register on Devpost." />
-  <!-- If hosting under a repository path like https://<user>.github.io/HTS-2025/ uncomment and set the base:
-       <base href="/HTS-2025/">
-  -->
-  <link rel="icon" href="./assets/favicon.png" />
+  <link rel="icon" href="https://github.com/user-attachments/assets/d0bc1e8d-5325-4d17-8961-49c704896230" />
 
   <style>
     :root{
-      --bg-dark:#071024;
-      --card:rgba(255,255,255,0.03);
-      --glass:rgba(255,255,255,0.04);
-      --glass-border:rgba(255,255,255,0.06);
-      --text:#e7eefc;
-      --muted:rgba(231,238,252,0.62);
-      --accent-a:#00a3ff;
-      --accent-b:#8a2be2;
-      --accent-c:#ff2d95;
-      --radius:12px;
-      --max-width:1100px;
-      --motion-duration:18s;
-      --ui-ease:cubic-bezier(.16,.84,.36,1);
-      --timer-bg: rgba(255,255,255,0.03);
+      --bg-dark: #071024;
+      --card: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.06);
+      --text: #e7eefc;
+      --muted: rgba(231,238,252,0.62);
+      --accent-a: #00a3ff;
+      --accent-b: #8a2be2;
+      --accent-c: #ff2d95;
+      --radius: 12px;
+      --max-width: 1100px;
+      --motion-duration: 18s;
+      --ui-ease: cubic-bezier(.16,.84,.36,1);
     }
 
-    *{box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    /* Reset + base */
+    * { box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
     html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--text);background:var(--bg-dark);overflow-y:auto}
-    a{color:inherit} img{display:block;max-width:100%;height:auto}
+    a{color:inherit}
+    img{display:block;max-width:100%;height:auto}
 
+    /* Background layers */
     body::before{
-      content:"";position:fixed;inset:0;z-index:-4;
+      content:"";
+      position:fixed;inset:0;z-index:-4;
       background:linear-gradient(120deg,#071022 0%, #051322 25%, #071024 60%, #041016 100%);
       transition:opacity .35s linear;
     }
@@ -41,17 +41,31 @@
     .animated-gradient{
       position:fixed;inset:-20% -20% -20% -20%;z-index:-3;mix-blend-mode:screen;opacity:0.95;pointer-events:none;
       background:linear-gradient(45deg, rgba(0,163,255,0.12), rgba(138,43,226,0.12), rgba(255,45,149,0.06));
-      background-size:600% 600%; animation:gradientShift var(--motion-duration) var(--ui-ease) infinite;
-      filter:blur(80px) contrast(1.05) saturate(1.15); transition:filter .3s;
+      background-size: 600% 600%;
+      animation:gradientShift var(--motion-duration) var(--ui-ease) infinite;
+      filter:blur(80px) contrast(1.05) saturate(1.15);
+      transition:filter .3s;
     }
-    @keyframes gradientShift{0%{background-position:0% 50%}25%{background-position:50% 20%}50%{background-position:100% 50%}75%{background-position:50% 80%}100%{background-position:0% 50%}}
+    @keyframes gradientShift{
+      0%{background-position:0% 50%}
+      25%{background-position:50% 20%}
+      50%{background-position:100% 50%}
+      75%{background-position:50% 80%}
+      100%{background-position:0% 50%}
+    }
 
+    /* Subtle grain overlay for texture */
     .grain{position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,0.01) 1px, transparent 1px);background-size:3px 3px;opacity:0.25}
+
+    /* Particles canvas */
     canvas.particles{position:fixed;inset:0;z-index:-1;opacity:0.6;pointer-events:none;will-change:transform}
 
     .container{max-width:var(--max-width);margin:40px auto;padding:28px}
+
+    /* Header / Hero */
     .hero{display:grid;grid-template-columns:1fr 360px;gap:28px;align-items:start}
     @media (max-width:960px){.hero{grid-template-columns:1fr}.container{padding:16px;margin:20px auto}}
+
     .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);padding:26px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.45)}
     .hero-head{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
     .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:white;font-weight:700;font-size:13px}
@@ -59,56 +73,62 @@
     .glow{color:var(--text);text-shadow:0 10px 30px rgba(0,163,255,0.08)}
     .sub{color:var(--muted);margin:12px 0 18px 0;line-height:1.45;min-height:42px}
 
+    /* Banner */
     .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.10);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center}
     .banner .overlay{height:100%;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.14))}
 
+    /* Logo */
     .logo{width:160px;height:160px;border-radius:16px;border:2px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,163,255,0.12);overflow:hidden;transition:transform .2s}
     .logo:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 26px 80px rgba(0,163,255,0.18)}
     .logo img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
 
+    /* CTA */
     .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
     .btn{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));padding:12px 18px;border-radius:12px;color:white;font-weight:800;text-decoration:none;border:none;cursor:pointer;display:inline-block}
     .btn:hover{transform:translateY(-6px);box-shadow:0 28px 64px rgba(0,163,255,0.22)}
     .ghost{padding:10px 14px;border-radius:12px;border:1px solid var(--glass-border);background:transparent;color:var(--muted);text-decoration:none;font-weight:700}
 
+    /* Countdown */
     .countdown{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
     .countdown .item{background:var(--card);padding:10px 12px;border-radius:10px;min-width:68px;text-align:center;box-shadow:inset 0 -6px 14px rgba(0,0,0,0.25)}
     .countdown .num{font-size:18px;font-weight:800}
     .countdown small{display:block;color:var(--muted);font-size:12px;opacity:0.9}
 
+    /* Right card */
     .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid var(--glass-border);box-shadow:0 8px 30px rgba(0,0,0,0.45)}
     .card h3{margin:0 0 8px 0}
 
+    /* Grid sections */
     section{margin-top:22px}
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
     @media (max-width:720px){.grid{grid-template-columns:1fr}}
 
     .rules li{margin:8px 0}
+
+    /* Rounds */
     .round-title{display:flex;align-items:center;gap:10px;font-weight:800}
     .flag{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:6px 10px;border-radius:8px;font-family:monospace;color:#dbeafe}
 
     footer{padding:26px 0;color:var(--muted);text-align:center}
 
+    /* Entrance */
     .fade-in{opacity:0;transform:translateY(10px);animation:enter .7s forwards}
     .fade-in.delay{animation-delay:.12s}
     @keyframes enter{to{opacity:1;transform:none}}
 
+    /* Little controls */
     .controls{position:fixed;right:18px;bottom:18px;z-index:40;display:flex;gap:10px;align-items:center}
     .control-btn{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.04);color:var(--text);padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:700;backdrop-filter: blur(6px)}
     .control-toggle{display:flex;align-items:center;gap:8px}
 
-    /* Timer specific */
-    .timer-box{background:var(--timer-bg);padding:10px 12px;border-radius:10px;display:inline-flex;align-items:center;gap:10px;border:1px solid var(--glass-border)}
-    .timer-display{font-weight:800;font-size:16px;min-width:104px;text-align:center}
-    .timer-controls{display:flex;gap:8px}
-    .timer-controls button{padding:6px 8px;border-radius:8px;border:none;background:rgba(255,255,255,0.04);color:var(--text);cursor:pointer;font-weight:700}
-
+    /* Responsive tweaks */
     @media (max-width:520px){
       .logo{width:110px;height:110px}
       .hero-card{padding:18px}
       h1{font-size:22px}
     }
 
+    /* Accessibility focus */
     a:focus, button:focus { outline:3px solid rgba(0,163,255,0.16); outline-offset:3px; border-radius:8px }
   </style>
 </head>
@@ -128,7 +148,8 @@
           </div>
         </div>
 
-        <a class="banner" id="banner" href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener" aria-label="Visit Devpost page" style="background-image: url('./assets/banner.png');">
+        <!-- Banner: replace URL with a hosted banner image -->
+        <a class="banner" id="banner" href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener" aria-label="Visit Devpost page" style="background-image: url('https://via.placeholder.com/1200x400.png?text=HTS+2025+Banner');">
           <div class="overlay" aria-hidden="true"></div>
         </a>
 
@@ -140,27 +161,13 @@
             </div>
 
             <div class="countdown" id="countdown" aria-live="polite" aria-atomic="true">
-              <!-- JS populates countdown -->
+              <!-- JS will populate countdown -->
             </div>
-
-            <!-- Stopwatch / Timer UI added per request -->
-            <div style="margin-top:12px;">
-              <div class="timer-box" role="group" aria-label="Stopwatch">
-                <div class="timer-display" id="stopwatchDisplay">00:00:00</div>
-                <div class="timer-controls" aria-hidden="false">
-                  <button id="swStart" title="Start">Start</button>
-                  <button id="swPause" title="Pause" disabled>Pause</button>
-                  <button id="swReset" title="Reset">Reset</button>
-                </div>
-              </div>
-              <div style="display:inline-block;margin-left:10px;color:var(--muted);font-size:13px">Stopwatch</div>
-            </div>
-
           </div>
 
           <div style="display:flex;gap:12px;align-items:center">
             <div class="logo" title="HTS Logo" aria-hidden="false">
-              <img src="./assets/logo.png" alt="HTS Logo" />
+              <img src="https://via.placeholder.com/160.png?text=HTS+Logo" alt="HTS Logo" />
             </div>
             <div style="text-align:right">
               <div style="font-weight:800">BlackXmask</div>
@@ -190,10 +197,12 @@
       </aside>
     </div>
 
+    <!-- Sections: Overview, Rounds, Rules -->
     <section class="grid">
       <div class="card fade-in">
         <h3>Overview</h3>
         <p class="muted">HTS 2025 is designed to give participants practical experience across forensics, reversing, and project development. Everyone is welcome — no prior experience required.</p>
+
         <h4 style="margin-bottom:6px">Scoring</h4>
         <ul>
           <li>Challenge rounds (flags/reversing): 50 pts</li>
@@ -257,6 +266,7 @@
     </footer>
   </main>
 
+  <!-- Floating controls: gradient presets + speed toggle -->
   <div class="controls" aria-hidden="false">
     <div class="control-toggle">
       <button id="presetBtn" class="control-btn" title="Cycle gradient">Gradient</button>
@@ -272,11 +282,13 @@
       let W = canvas.width = innerWidth;
       let H = canvas.height = innerHeight;
       let particles = [];
+      // scale with area but cap for performance
       const base = Math.round((W*H)/90000);
       const maxAllowed = 120;
       const PCOUNT = Math.min(maxAllowed, Math.max(18, base));
 
       function rand(min,max){ return Math.random()*(max-min)+min; }
+
       function makeParticles(){
         particles = [];
         for(let i=0;i<PCOUNT;i++){
@@ -304,6 +316,7 @@
 
       function loop(){
         ctx.clearRect(0,0,W,H);
+        // simple connect lines
         for(let i=0;i<particles.length;i++){
           const p = particles[i];
           p.x += p.vx; p.y += p.vy;
@@ -312,6 +325,7 @@
           if(p.y<0) p.y = H;
           if(p.y>H) p.y = 0;
 
+          // attraction to mouse
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const dist = Math.sqrt(dx*dx + dy*dy);
@@ -320,6 +334,7 @@
             p.vx += (dx/dist) * 0.08 * force;
             p.vy += (dy/dist) * 0.06 * force;
           } else {
+            // gentle damping
             p.vx *= 0.995; p.vy *= 0.995;
           }
 
@@ -330,6 +345,7 @@
           ctx.fill();
         }
 
+        // draw connecting lines for close pairs
         ctx.globalAlpha = 0.08;
         ctx.strokeStyle = "rgba(255,255,255,0.08)";
         for(let i=0;i<particles.length;i++){
@@ -337,7 +353,7 @@
             const a = particles[i], b = particles[j];
             const dx = a.x-b.x, dy = a.y-b.y;
             const d2 = dx*dx + dy*dy;
-            if(d2 < 9000){
+            if(d2 < 9000){ // ~95px
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(a.x,a.y);
@@ -371,6 +387,7 @@
       function applyPreset(i){
         const [a,b,c] = presets[i % presets.length];
         node.style.background = `linear-gradient(45deg, ${hexToRgba(a,0.12)}, ${hexToRgba(b,0.12)}, ${hexToRgba(c,0.06)})`;
+        // also set CSS accent vars to keep UI cohesive
         document.documentElement.style.setProperty('--accent-a', a);
         document.documentElement.style.setProperty('--accent-b', b);
         document.documentElement.style.setProperty('--accent-c', c);
@@ -396,8 +413,13 @@
         pauseBtn.textContent = playing ? 'Pause' : 'Resume';
       });
 
+      // cycle automatically every 16s for live feel
       let autoCycle = setInterval(()=>{ idx=(idx+1)%presets.length; applyPreset(idx); }, 16000);
+
+      // initialize
       applyPreset(idx);
+
+      // stop auto cycle on user interaction for 30s
       [presetBtn, pauseBtn].forEach(el=>{
         el.addEventListener('click', ()=>{ clearInterval(autoCycle); autoCycle = setInterval(()=>{ idx=(idx+1)%presets.length; applyPreset(idx); }, 18000); });
       });
@@ -405,9 +427,14 @@
 
     /* ---------------- Countdown logic (PST -> UTC) ---------------- */
     (function(){
+      // PST (UTC-8) midnight times provided in the page description:
       const registrationUTC = new Date('2025-11-15T08:00:00Z'); // 15 Nov 2025 00:00 PST
       const round1UTC = new Date('2025-11-16T08:00:00Z'); // 16 Nov 2025 00:00 PST
       const countdownEl = document.getElementById('countdown');
+
+      function formatBlock(label, val){
+        return `<div class="item" role="group" aria-label="${label}">${val}</div>`;
+      }
 
       function update(){
         const now = new Date();
@@ -428,72 +455,7 @@
            <div class="item"><div class="num">${String(secs).padStart(2,'0')}</div><small>Seconds</small></div>`;
       }
       update();
-      setInterval(update,1000);
-    })();
-
-    /* ---------------- Stopwatch (user requested "timmer") ---------------- */
-    (function(){
-      // Simple stopwatch with Start / Pause / Reset
-      const display = document.getElementById('stopwatchDisplay');
-      const btnStart = document.getElementById('swStart');
-      const btnPause = document.getElementById('swPause');
-      const btnReset = document.getElementById('swReset');
-
-      let startTs = 0;     // timestamp when started
-      let elapsed = 0;     // elapsed ms while paused
-      let raf = null;
-      let running = false;
-
-      function format(ms){
-        const total = Math.floor(ms/1000);
-        const hh = Math.floor(total/3600);
-        const mm = Math.floor((total%3600)/60);
-        const ss = total%60;
-        return `${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')}`;
-      }
-
-      function tick(){
-        const now = performance.now();
-        const ms = elapsed + (running ? now - startTs : 0);
-        display.textContent = format(ms);
-        raf = requestAnimationFrame(tick);
-      }
-
-      btnStart.addEventListener('click', ()=>{
-        if(!running){
-          startTs = performance.now();
-          running = true;
-          btnStart.textContent = 'Running';
-          btnStart.disabled = true;
-          btnPause.disabled = false;
-          if(!raf) tick();
-        }
-      });
-
-      btnPause.addEventListener('click', ()=>{
-        if(running){
-          const now = performance.now();
-          elapsed += now - startTs;
-          running = false;
-          btnStart.textContent = 'Start';
-          btnStart.disabled = false;
-          btnPause.disabled = true;
-        }
-      });
-
-      btnReset.addEventListener('click', ()=>{
-        running = false;
-        elapsed = 0;
-        startTs = 0;
-        display.textContent = '00:00:00';
-        btnStart.textContent = 'Start';
-        btnStart.disabled = false;
-        btnPause.disabled = true;
-      });
-
-      // initialize
-      display.textContent = '00:00:00';
-      btnPause.disabled = true;
+      setInterval(update, 1000);
     })();
 
     /* ---------------- Small UI niceties: typewriter & entrance delays ---------------- */
@@ -511,25 +473,28 @@
       document.querySelectorAll('.fade-in').forEach((el,idx)=>{ el.style.animationDelay = (0.06*idx)+'s' });
     })();
 
-    /* ---------------- Respect prefers-reduced-motion ---------------- */
+    /* ---------------- Simple accessibility helper: prefers-reduced-motion respect ---------------- */
     (function reduceMotionCheck(){
       if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        // Pause heavy animations
         document.getElementById('animatedGradient').style.animation = 'none';
         document.getElementById('particles').style.display = 'none';
         document.querySelectorAll('.fade-in').forEach(e => { e.style.transition = 'none'; e.style.animation = 'none'; e.style.opacity = 1; });
       }
     })();
 
-    /* ---------------- Parallax ---------------- */
+    /* ---------------- Extra: gentle parallax effect on mouse move ---------------- */
     (function parallax(){
       const gradient = document.getElementById('animatedGradient');
+      let rx=0, ry=0;
       addEventListener('pointermove', e=>{
         const cx = innerWidth/2, cy = innerHeight/2;
-        const rx = ((e.clientX - cx) / cx) * 6;
-        const ry = ((e.clientY - cy) / cy) * 6;
+        rx = ((e.clientX - cx) / cx) * 6; // max translate %
+        ry = ((e.clientY - cy) / cy) * 6;
         gradient.style.transform = `translate3d(${rx}px, ${ry}px, 0) rotate(${rx*0.02}deg)`;
       });
-      addEventListener('pointerleave', ()=>{ document.getElementById('animatedGradient').style.transform = ''; });
+      // subtle return when mouse leaves
+      addEventListener('pointerleave', ()=>{ gradient.style.transform = ''; });
     })();
 
   </script>
