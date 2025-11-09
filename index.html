@@ -49,7 +49,7 @@
       background-size: 600% 600%;
       animation:gradientShift var(--motion-duration) var(--ui-ease) infinite;
       filter:blur(80px) contrast(1.05) saturate(1.15);
-      transition:filter .3s;
+      transition:filter .3s, transform .35s;
     }
     @keyframes gradientShift{
       0%{background-position:0% 50%}
@@ -79,11 +79,13 @@
     .sub{color:var(--muted);margin:12px 0 18px 0;line-height:1.45;min-height:42px}
 
     /* Banner */
-    .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.10);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center}
-    .banner .overlay{height:100%;width:100%;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.24));display:block}
+    .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.10);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center;display:block;position:relative}
+    .banner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+    .banner:hover img{transform:scale(1.03)}
+    .banner .overlay{position:absolute;inset:0;height:100%;width:100%;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.24));display:block;pointer-events:none}
 
     /* Logo */
-    .logo{width:160px;height:160px;border-radius:16px;border:2px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,163,255,0.12);overflow:hidden;position:relative}
+    .logo{width:160px;height:160px;border-radius:16px;border:2px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,163,255,0.12);overflow:hidden;position:relative;transition:transform .28s}
     .logo:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 26px 80px rgba(0,163,255,0.18)}
     .logo img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
     .logo .online{position:absolute;right:12px;bottom:12px;width:14px;height:14px;border-radius:999px;border:2px solid rgba(0,0,0,0.45);background:var(--online-green);box-shadow:0 0 12px rgba(57,211,83,0.2)}
@@ -96,8 +98,14 @@
 
     /* Countdown */
     .countdown{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center}
-    .countdown .item{background:var(--card);padding:12px 14px;border-radius:12px;min-width:84px;text-align:center;box-shadow:inset 0 -6px 14px rgba(0,0,0,0.25);display:flex;flex-direction:column;align-items:center}
-    .countdown .num{font-size:20px;font-weight:800}
+    .countdown .item{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:16px 18px;border-radius:12px;min-width:98px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.45);display:flex;flex-direction:column;align-items:center;backdrop-filter: blur(2px);
+      transition:transform .28s, box-shadow .28s;
+    }
+    .countdown .item:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.5)}
+    .countdown .num{font-size:28px;font-weight:900;color:var(--text);padding:2px 0;transition:transform .36s cubic-bezier(.2,.9,.3,1)}
+    .countdown .num.pop{transform:scale(1.12);color:var(--accent-a);text-shadow:0 6px 18px rgba(0,163,255,0.12)}
     .countdown small{display:block;color:var(--muted);font-size:12px;opacity:0.95}
 
     /* Right card */
@@ -127,6 +135,11 @@
     .control-btn{background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.04);color:var(--text);padding:9px 12px;border-radius:10px;cursor:pointer;font-weight:700;backdrop-filter: blur(6px)}
     .control-toggle{display:flex;align-items:center;gap:8px}
 
+    /* Theme swatches */
+    .theme-swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .swatch{width:40px;height:40px;border-radius:8px;border:2px solid rgba(255,255,255,0.06);cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.35);transition:transform .18s}
+    .swatch:hover{transform:translateY(-4px);outline:3px solid rgba(255,255,255,0.06)}
+
     /* Responsive tweaks */
     @media (max-width:520px){
       .logo{width:110px;height:110px}
@@ -134,6 +147,7 @@
       h1{font-size:22px}
       .countdown .item{min-width:64px;padding:8px 10px}
       .countdown .num{font-size:16px}
+      .countdown .num.pop{transform:none}
     }
 
     /* Online pulse */
@@ -161,8 +175,9 @@
           </div>
         </div>
 
-        <!-- Banner: replace URL with a hosted banner image -->
-        <a class="banner" id="banner" href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Devpost page" style="background-image: url('dev.png')">
+        <!-- Banner as an img so it scales nicely -->
+        <a class="banner" id="banner" href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit Devpost page" title="Welcome to HTS — Hack The Shield">
+          <img src="dev.png" alt="HTS 2025 banner — click to visit Devpost" loading="lazy" />
           <div class="overlay" aria-hidden="true"></div>
         </a>
 
@@ -179,7 +194,7 @@
           </div>
 
           <div style="display:flex;gap:12px;align-items:center;position:relative">
-            <a class="logo" title="HTS Logo" href="https://github.com/blackXmask" target="_blank" rel="noopener noreferrer" aria-label="BlackXmask profile">
+            <a class="logo" title="Explore BlackXmask — GitHub" href="https://github.com/blackXmask" target="_blank" rel="noopener noreferrer" aria-label="BlackXmask profile">
               <img src="https://github.com/blackxmask.png" alt="BlackXmask avatar" />
               <div class="online" aria-hidden="true"></div>
             </a>
@@ -278,6 +293,16 @@
       </div>
     </section>
 
+    <!-- New: Themes card so users can pick a live gradient preset -->
+    <section class="fade-in">
+      <div class="card">
+        <h3>Themes</h3>
+        <p class="muted">Try different live gradient themes — the UI accents and animated gradient will update to match.</p>
+        <div id="themeSwatches" class="theme-swatches" aria-live="polite" aria-atomic="true"></div>
+        <small class="muted" style="display:block;margin-top:10px">You can also use the Gradient control (bottom-right) to cycle themes.</small>
+      </div>
+    </section>
+
     <footer class="fade-in" style="margin-top:26px">
       <small>“Hack. Learn. Build. Protect.” — Proudly presented by BlackXmask</small>
     </footer>
@@ -322,7 +347,6 @@
 
       let resizeTimeout;
       function resize(){
-        // debounce quick resizes
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(()=>{
           W = canvas.width = innerWidth;
@@ -338,7 +362,6 @@
 
       function loop(){
         ctx.clearRect(0,0,W,H);
-        // simple connect lines
         for(let i=0;i<particles.length;i++){
           const p = particles[i];
           p.x += p.vx; p.y += p.vy;
@@ -347,7 +370,6 @@
           if(p.y<0) p.y = H;
           if(p.y>H) p.y = 0;
 
-          // attraction to mouse
           const dx = mouse.x - p.x;
           const dy = mouse.y - p.y;
           const dist = Math.sqrt(dx*dx + dy*dy) || 1;
@@ -356,7 +378,6 @@
             p.vx += (dx/dist) * 0.08 * force;
             p.vy += (dy/dist) * 0.06 * force;
           } else {
-            // gentle damping
             p.vx *= 0.995; p.vy *= 0.995;
           }
 
@@ -367,7 +388,6 @@
           ctx.fill();
         }
 
-        // draw connecting lines for close pairs
         ctx.globalAlpha = 0.08;
         ctx.strokeStyle = "rgba(255,255,255,0.08)";
         for(let i=0;i<particles.length;i++){
@@ -375,7 +395,7 @@
             const a = particles[i], b = particles[j];
             const dx = a.x-b.x, dy = a.y-b.y;
             const d2 = dx*dx + dy*dy;
-            if(d2 < 9000){ // ~95px squared
+            if(d2 < 9000){
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(a.x,a.y);
@@ -393,7 +413,7 @@
       loop();
     })();
 
-    /* ---------------- Dynamic gradient presets & controls ---------------- */
+    /* ---------------- Dynamic gradient presets & controls (exposed to swatches) ---------------- */
     (function(){
       const node = document.getElementById('animatedGradient');
       const presets = [
@@ -401,20 +421,13 @@
         ['#00f5a0','#00a3ff','#5a4de8'],
         ['#ff6b6b','#ff9f43','#ffd166'],
         ['#7cf2ff','#9dffb9','#bfa0ff'],
+        ['#ff7bd0','#6f49ff','#00d4ff']
       ];
       let idx = 0;
       const presetBtn = document.getElementById('presetBtn');
       const pauseBtn = document.getElementById('pauseAnim');
+      const swatchesContainer = document.getElementById('themeSwatches');
       let playing = true;
-
-      function applyPreset(i){
-        const [a,b,c] = presets[i % presets.length];
-        node.style.background = `linear-gradient(45deg, ${hexToRgba(a,0.12)}, ${hexToRgba(b,0.12)}, ${hexToRgba(c,0.06)})`;
-        // also set CSS accent vars to keep UI cohesive
-        document.documentElement.style.setProperty('--accent-a', a);
-        document.documentElement.style.setProperty('--accent-b', b);
-        document.documentElement.style.setProperty('--accent-c', c);
-      }
 
       function hexToRgba(hex,alpha){
         const h = hex.replace('#','');
@@ -423,6 +436,30 @@
         const g = (bigint >> 8) & 255;
         const b = bigint & 255;
         return `rgba(${r},${g},${b},${alpha})`;
+      }
+
+      function applyPreset(i){
+        idx = i % presets.length;
+        const [a,b,c] = presets[idx];
+        node.style.background = `linear-gradient(45deg, ${hexToRgba(a,0.12)}, ${hexToRgba(b,0.12)}, ${hexToRgba(c,0.06)})`;
+        document.documentElement.style.setProperty('--accent-a', a);
+        document.documentElement.style.setProperty('--accent-b', b);
+        document.documentElement.style.setProperty('--accent-c', c);
+      }
+
+      // initialize swatches UI
+      function createSwatches(){
+        if(!swatchesContainer) return;
+        swatchesContainer.innerHTML = '';
+        presets.forEach((p, i) => {
+          const btn = document.createElement('button');
+          btn.className = 'swatch';
+          btn.title = `Apply theme ${i+1}`;
+          btn.type = 'button';
+          btn.style.background = `linear-gradient(90deg, ${p[0]}, ${p[1]})`;
+          btn.addEventListener('click', ()=>{ applyPreset(i); stopAutoCycleShort(); });
+          swatchesContainer.appendChild(btn);
+        });
       }
 
       presetBtn.addEventListener('click', ()=>{
@@ -436,25 +473,51 @@
         pauseBtn.textContent = playing ? 'Pause' : 'Resume';
       });
 
-      // cycle automatically every 16s for live feel
       let autoCycle = setInterval(()=>{ idx=(idx+1)%presets.length; applyPreset(idx); }, 16000);
 
-      // initialize
+      function stopAutoCycleShort(){
+        clearInterval(autoCycle);
+        autoCycle = setInterval(()=>{ idx=(idx+1)%presets.length; applyPreset(idx); }, 22000);
+      }
+
+      // initialize UI
+      createSwatches();
       applyPreset(idx);
 
-      // stop auto cycle on user interaction for 30s
+      // keep auto cycle alive after user interactions
       [presetBtn, pauseBtn].forEach(el=>{
-        el.addEventListener('click', ()=>{ clearInterval(autoCycle); autoCycle = setInterval(()=>{ idx=(idx+1)%presets.length; applyPreset(idx); }, 18000); });
+        el.addEventListener('click', ()=>{ stopAutoCycleShort(); });
       });
+
+      // expose applyPreset for debugging / future use
+      window.__applyThemePreset = applyPreset;
     })();
 
-    /* ---------------- Countdown logic (PST -> UTC) ---------------- */
+    /* ---------------- Countdown logic (PST -> UTC) with pop animation ---------------- */
     (function(){
       // PST (UTC-8) midnight times provided in the page description:
-      // 15 Nov 2025 00:00 PST == 2025-11-15T08:00:00Z
       const registrationUTC = new Date('2025-11-15T08:00:00Z'); // 15 Nov 2025 00:00 PST
       const round1UTC = new Date('2025-11-16T08:00:00Z'); // 16 Nov 2025 00:00 PST
       const countdownEl = document.getElementById('countdown');
+
+      let last = { days: null, hours: null, mins: null };
+
+      function renderTiles(days, hours, mins){
+        const html =
+          `<div class="item" role="group" aria-label="Days"><div class="num" data-type="days">${String(days).padStart(2,'0')}</div><small>Days</small></div>` +
+          `<div class="item" role="group" aria-label="Hours"><div class="num" data-type="hours">${String(hours).padStart(2,'0')}</div><small>Hours</small></div>` +
+          `<div class="item" role="group" aria-label="Minutes"><div class="num" data-type="mins">${String(mins).padStart(2,'0')}</div><small>Minutes</small></div>`;
+        countdownEl.innerHTML = html;
+      }
+
+      function popIfChanged(type, newVal){
+        const el = countdownEl.querySelector(`.num[data-type="${type}"]`);
+        if(!el) return;
+        if(String(last[type]) !== String(newVal)){
+          el.classList.add('pop');
+          setTimeout(()=> el.classList.remove('pop'), 450);
+        }
+      }
 
       function update(){
         const now = new Date();
@@ -467,15 +530,24 @@
         const days = Math.floor(diff/86400);
         const hours = Math.floor((diff%86400)/3600);
         const mins = Math.floor((diff%3600)/60);
-        // Seconds intentionally removed per request (no stopwatch)
-        countdownEl.innerHTML =
-          `<div class="item" role="group" aria-label="Days"><div class="num">${String(days).padStart(2,'0')}</div><small>Days</small></div>` +
-          `<div class="item" role="group" aria-label="Hours"><div class="num">${String(hours).padStart(2,'0')}</div><small>Hours</small></div>` +
-          `<div class="item" role="group" aria-label="Minutes"><div class="num">${String(mins).padStart(2,'0')}</div><small>Minutes</small></div>`;
+
+        // initial render or update numbers
+        if(last.days === null){
+          renderTiles(days, hours, mins);
+        } else {
+          const mapping = { days, hours, mins };
+          for(const k of ['days','hours','mins']){
+            if(mapping[k] !== last[k]){
+              const el = countdownEl.querySelector(`.num[data-type="${k}"]`);
+              if(el) el.textContent = String(mapping[k]).padStart(2,'0');
+              popIfChanged(k, mapping[k]);
+            }
+          }
+        }
+        last = { days, hours, mins };
       }
       update();
-      // update every 30s to keep display fresh while avoiding unnecessary ticks
-      setInterval(update, 30000);
+      setInterval(update, 1000 * 20); // 20s refresh
     })();
 
     /* ---------------- Small UI niceties: typewriter & entrance delays ---------------- */
@@ -497,8 +569,10 @@
     (function reduceMotionCheck(){
       if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
         // Pause heavy animations
-        document.getElementById('animatedGradient').style.animation = 'none';
-        document.getElementById('particles').style.display = 'none';
+        const ag = document.getElementById('animatedGradient');
+        if(ag) ag.style.animation = 'none';
+        const p = document.getElementById('particles');
+        if(p) p.style.display = 'none';
         document.querySelectorAll('.fade-in').forEach(e => { e.style.transition = 'none'; e.style.animation = 'none'; e.style.opacity = 1; });
       }
     })();
@@ -506,14 +580,14 @@
     /* ---------------- Extra: gentle parallax effect on mouse move ---------------- */
     (function parallax(){
       const gradient = document.getElementById('animatedGradient');
+      if(!gradient) return;
       let rx=0, ry=0;
       addEventListener('pointermove', e=>{
         const cx = innerWidth/2, cy = innerHeight/2;
-        rx = ((e.clientX - cx) / cx) * 6; // max translate px
+        rx = ((e.clientX - cx) / cx) * 6;
         ry = ((e.clientY - cy) / cy) * 6;
         gradient.style.transform = `translate3d(${rx}px, ${ry}px, 0) rotate(${rx*0.02}deg)`;
       });
-      // subtle return when mouse leaves
       addEventListener('pointerleave', ()=>{ gradient.style.transform = ''; });
     })();
 
