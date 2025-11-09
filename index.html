@@ -22,6 +22,7 @@
       --max-width: 1100px;
       --motion-duration: 18s;
       --ui-ease: cubic-bezier(.16,.84,.36,1);
+      --online-green: #39d353;
     }
 
     /* Reset + base */
@@ -74,25 +75,26 @@
     .sub{color:var(--muted);margin:12px 0 18px 0;line-height:1.45;min-height:42px}
 
     /* Banner */
-    .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.10);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center}
-    .banner .overlay{height:100%;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.14))}
+    .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.10);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center;display:flex;align-items:flex-end}
+    .banner .overlay{height:100%;width:100%;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.24));display:block}
 
     /* Logo */
-    .logo{width:160px;height:160px;border-radius:16px;border:2px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,163,255,0.12);overflow:hidden;transition:transform .2s}
+    .logo{width:160px;height:160px;border-radius:16px;border:2px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,163,255,0.12);overflow:hidden;position:relative}
     .logo:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 26px 80px rgba(0,163,255,0.18)}
     .logo img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
+    .logo .online{position:absolute;right:12px;bottom:12px;width:14px;height:14px;border-radius:999px;border:2px solid rgba(0,0,0,0.45);background:var(--online-green);box-shadow:0 0 12px rgba(57,211,83,0.35);}
 
     /* CTA */
     .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .btn{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));padding:12px 18px;border-radius:12px;color:white;font-weight:800;text-decoration:none;border:none;cursor:pointer;display:inline-block}
+    .btn{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));padding:12px 18px;border-radius:12px;color:white;font-weight:800;text-decoration:none;border:none;cursor:pointer;display:inline-block;box-shadow:0 8px 30px rgba(8,12,30,0.6)}
     .btn:hover{transform:translateY(-6px);box-shadow:0 28px 64px rgba(0,163,255,0.22)}
     .ghost{padding:10px 14px;border-radius:12px;border:1px solid var(--glass-border);background:transparent;color:var(--muted);text-decoration:none;font-weight:700}
 
     /* Countdown */
-    .countdown{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-    .countdown .item{background:var(--card);padding:10px 12px;border-radius:10px;min-width:68px;text-align:center;box-shadow:inset 0 -6px 14px rgba(0,0,0,0.25)}
-    .countdown .num{font-size:18px;font-weight:800}
-    .countdown small{display:block;color:var(--muted);font-size:12px;opacity:0.9}
+    .countdown{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center}
+    .countdown .item{background:var(--card);padding:12px 14px;border-radius:12px;min-width:84px;text-align:center;box-shadow:inset 0 -6px 14px rgba(0,0,0,0.25);display:flex;flex-direction:column;align-items:center}
+    .countdown .num{font-size:20px;font-weight:800}
+    .countdown small{display:block;color:var(--muted);font-size:12px;opacity:0.95}
 
     /* Right card */
     .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid var(--glass-border);box-shadow:0 8px 30px rgba(0,0,0,0.45)}
@@ -126,7 +128,14 @@
       .logo{width:110px;height:110px}
       .hero-card{padding:18px}
       h1{font-size:22px}
+      .countdown .item{min-width:64px;padding:8px 10px}
+      .countdown .num{font-size:16px}
     }
+
+    /* Online pulse */
+    @keyframes pulse { 0% { transform: scale(0.9); opacity: 0.9 } 70% { transform: scale(1.4); opacity: 0 } 100% { transform: scale(1.4); opacity: 0 } }
+    .online-pulse{position:absolute;right:8px;bottom:8px;width:28px;height:28px;border-radius:50%;pointer-events:none}
+    .online-pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--online-green);opacity:0.5;filter:blur(6px);animation:pulse 1.6s infinite}
 
     /* Accessibility focus */
     a:focus, button:focus { outline:3px solid rgba(0,163,255,0.16); outline-offset:3px; border-radius:8px }
@@ -149,7 +158,7 @@
         </div>
 
         <!-- Banner: replace URL with a hosted banner image -->
-        <a class="banner" id="banner" href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener" aria-label="Visit Devpost page" style="background-image: url('https://via.placeholder.com/1200x400.png?text=HTS+2025+Banner');">
+        <a class="banner" id="banner" href="https://hts-2k25.devpost.com/" target="_blank" rel="noopener" aria-label="Visit Devpost page" style="background-image: url('https://via.placeholder.com/1200x360.png?text=HTS+2025+Banner')">
           <div class="overlay" aria-hidden="true"></div>
         </a>
 
@@ -161,16 +170,20 @@
             </div>
 
             <div class="countdown" id="countdown" aria-live="polite" aria-atomic="true">
-              <!-- JS will populate countdown -->
+              <!-- JS will populate countdown (Days / Hours / Minutes) -->
             </div>
           </div>
 
-          <div style="display:flex;gap:12px;align-items:center">
-            <div class="logo" title="HTS Logo" aria-hidden="false">
-              <img src="https://via.placeholder.com/160.png?text=HTS+Logo" alt="HTS Logo" />
-            </div>
-            <div style="text-align:right">
-              <div style="font-weight:800">BlackXmask</div>
+          <div style="display:flex;gap:12px;align-items:center;position:relative">
+            <a class="logo" title="HTS Logo" href="https://github.com/blackXmask" target="_blank" rel="noopener" aria-label="BlackXmask profile">
+              <img src="https://github.com/blackxmask.png" alt="BlackXmask avatar" />
+              <div class="online" aria-hidden="true"></div>
+            </a>
+            <div style="text-align:right;position:relative">
+              <div style="font-weight:800;display:flex;align-items:center;gap:8px;justify-content:flex-end">
+                <span>BlackXmask</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="6" fill="var(--online-green)"/></svg>
+              </div>
               <div class="muted">Community · Cybersecurity · Learning</div>
             </div>
           </div>
@@ -253,7 +266,7 @@
     <section class="fade-in">
       <h3>Contact & Follow</h3>
       <p class="muted">For sponsorships, contact <a href="mailto:blackxmask.official@gmail.com" style="color:var(--text);text-decoration:underline">blackxmask.official@gmail.com</a>.</p>
-      <div class="socials" style="margin-top:10px">
+      <div class="socials" style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
         <a href="https://tiktok.com/@blackxmask03" target="_blank" rel="noopener">TikTok</a>
         <a href="https://whatsapp.com/channel/0029Vb5zVHiDTkK4DQoYQS3q" target="_blank" rel="noopener">WhatsApp</a>
         <a href="https://www.youtube.com/@ah_blackmask" target="_blank" rel="noopener">YouTube</a>
@@ -432,10 +445,6 @@
       const round1UTC = new Date('2025-11-16T08:00:00Z'); // 16 Nov 2025 00:00 PST
       const countdownEl = document.getElementById('countdown');
 
-      function formatBlock(label, val){
-        return `<div class="item" role="group" aria-label="${label}">${val}</div>`;
-      }
-
       function update(){
         const now = new Date();
         const target = now < registrationUTC ? registrationUTC : (now < round1UTC ? round1UTC : null);
@@ -447,15 +456,15 @@
         const days = Math.floor(diff/86400);
         const hours = Math.floor((diff%86400)/3600);
         const mins = Math.floor((diff%3600)/60);
-        const secs = diff%60;
+        // Seconds intentionally removed per request (no stopwatch)
         countdownEl.innerHTML =
-          `<div class="item"><div class="num">${String(days).padStart(2,'0')}</div><small>Days</small></div>
-           <div class="item"><div class="num">${String(hours).padStart(2,'0')}</div><small>Hours</small></div>
-           <div class="item"><div class="num">${String(mins).padStart(2,'0')}</div><small>Minutes</small></div>
-           <div class="item"><div class="num">${String(secs).padStart(2,'0')}</div><small>Seconds</small></div>`;
+          `<div class="item" role="group" aria-label="Days"><div class="num">${String(days).padStart(2,'0')}</div><small>Days</small></div>` +
+          `<div class="item" role="group" aria-label="Hours"><div class="num">${String(hours).padStart(2,'0')}</div><small>Hours</small></div>` +
+          `<div class="item" role="group" aria-label="Minutes"><div class="num">${String(mins).padStart(2,'0')}</div><small>Minutes</small></div>`;
       }
       update();
-      setInterval(update, 1000);
+      // update every 30s to keep display fresh while avoiding unnecessary ticks
+      setInterval(update, 30000);
     })();
 
     /* ---------------- Small UI niceties: typewriter & entrance delays ---------------- */
