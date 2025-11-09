@@ -1,0 +1,336 @@
+<!--
+HTS 2025 — Single-file landing page (HTML + CSS + JS)
+Drop this file into your GitHub repo (e.g., docs/index.html) or serve directly.
+Features included:
+- Animated multi-stop gradient background
+- Particle animation (canvas) for subtle motion
+- Animated banner / logo with glow
+- Countdown timer to Registration Close (15 Nov 2025 00:00 PST) and Round 1 (16 Nov 2025 00:00 PST)
+- Typewriter subtitle, smooth entrance animations
+- Interactive CTA (Register on Devpost) with hover effects
+- Responsive layout and accessible markup
+- Comments explain where to change images/links/text
+
+Note: Dates in the countdown are converted from PST (UTC-8) to UTC internally
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HTS 2025 — Hack The Shield | BlackXmask</title>
+  <meta name="description" content="HTS 2025 — Hack The Shield. Cybersecurity hackathon by BlackXmask. Register on Devpost." />
+
+  <!-- Favicon (optional) -->
+  <link rel="icon" href="https://github.com/user-attachments/assets/d0bc1e8d-5325-4d17-8961-49c704896230" />
+
+  <style>
+    :root{
+      --bg-dark: #0b1020;
+      --card: rgba(255,255,255,0.04);
+      --glass: rgba(255,255,255,0.05);
+      --accent: #007bff;
+      --accent-2: #8a2be2;
+      --glass-border: rgba(255,255,255,0.06);
+      --text: #e7eefc;
+      --muted: rgba(231,238,252,0.6);
+    }
+
+    /* Reset-ish */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--text);background:var(--bg-dark);}
+
+    /* Animated gradient background */
+    body::before{
+      content:"";
+      position:fixed;inset:0;z-index:-3;
+      background:linear-gradient(120deg,#0f1724 0%, #071126 15%, #0a1b2b 35%, #071126 70%, #0f1724 100%);
+      transition:opacity .5s linear;
+    }
+
+    /* Multi-stop animated gradient layer */
+    .animated-gradient{
+      position:fixed;inset:0;z-index:-2;mix-blend-mode:screen;opacity:0.9;pointer-events:none;
+      background:linear-gradient(45deg, rgba(0,123,255,0.12), rgba(138,43,226,0.12), rgba(255,0,128,0.06));
+      background-size:600% 600%;
+      animation:gradientShift 18s ease infinite;
+      filter:blur(60px) contrast(1.05) saturate(1.2);
+    }
+    @keyframes gradientShift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    /* Particle canvas sits behind content */
+    canvas.particles{position:fixed;inset:0;z-index:-1;opacity:0.55}
+
+    .container{max-width:1100px;margin:40px auto;padding:28px;}
+
+    /* Header / Hero */
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:center}
+    @media (max-width:900px){.hero{grid-template-columns:1fr;}.container{padding:16px}}
+
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);padding:26px;border-radius:16px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+
+    h1{font-size:32px;margin:0 0 6px 0;letter-spacing:-0.5px}
+    .eyebrow{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;font-weight:600;font-size:13px}
+    .sub{color:var(--muted);margin:12px 0 18px 0;line-height:1.4}
+
+    /* Banner image */
+    .banner{width:100%;height:140px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,123,255,0.12);box-shadow:0 8px 28px rgba(0,123,255,0.06) inset;background-size:cover;background-position:center}
+
+    /* Logo round */
+    .logo{width:160px;height:160px;border-radius:14px;border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(0,123,255,0.15);}
+    .logo img{width:100%;height:100%;object-fit:cover;border-radius:10px}
+
+    /* CTA */
+    .cta{display:flex;gap:12px;align-items:center}
+    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:12px 18px;border-radius:12px;color:white;font-weight:700;text-decoration:none;border:none;cursor:pointer;box-shadow:0 14px 30px rgba(10,132,255,0.15);transform:translateY(0);transition:transform .18s ease,box-shadow .18s}
+    .btn:hover{transform:translateY(-4px);box-shadow:0 22px 48px rgba(10,132,255,0.22)}
+    .ghost{padding:10px 14px;border-radius:12px;border:1px solid var(--glass-border;background:transparent;color:var(--muted);text-decoration:none}
+
+    /* Countdown */
+    .countdown{display:flex;gap:10px;margin-top:12px}
+    .countdown .item{background:var(--card);padding:10px 12px;border-radius:10px;min-width:68px;text-align:center}
+    .countdown .num{font-size:18px;font-weight:700}
+    .countdown small{display:block;color:var(--muted);font-size:12px}
+
+    /* Sections */
+    section{margin-top:22px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    @media (max-width:720px){.grid{grid-template-columns:1fr}}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid var(--glass-border)}
+
+    /* Fancy list */
+    .rules li{margin:8px 0}
+
+    /* Rounds style */
+    .round-title{display:flex;align-items:center;gap:10px;font-weight:800}
+    .flag{background:rgba(0,0,0,0.25);padding:6px 10px;border-radius:8px;font-family:monospace;color:#dbeafe}
+
+    footer{padding:26px 0;color:var(--muted);text-align:center}
+
+    /* Subtle entrance animations */
+    .fade-in{opacity:0;transform:translateY(8px);animation:enter .7s forwards}
+    .fade-in.delay{animation-delay:.12s}
+    @keyframes enter{to{opacity:1;transform:none}}
+
+    /* Neon glow on headings */
+    .glow{color:var(--text);text-shadow:0 6px 30px rgba(0,123,255,0.08)}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .socials{display:flex;gap:8px;flex-wrap:wrap}
+    .socials a{display:inline-block;padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);text-decoration:none;color:var(--text);font-weight:600}
+
+  </style>
+</head>
+<body>
+  <div class="animated-gradient"></div>
+  <canvas class="particles" id="particles"></canvas>
+
+  <main class="container">
+    <div class="hero">
+      <div class="hero-card fade-in">
+        <span class="eyebrow">🛡️ HTS 2025</span>
+        <h1 class="glow">Hack The Shield — Empowering Cybersecurity Talent</h1>
+        <p class="sub">Join BlackXmask for a hands-on, beginner-friendly to advanced cybersecurity hackathon. Win certificates, build projects, and gain mentorship.</p>
+
+        <!-- Banner: replace src below with your GitHub banner if hosted publicly -->
+        <div class="banner" id="banner" style="background-image: url('https://github.com/user-attachments/assets/45789aac-6c57-4397-b316-1c7a5d0a8aa3');"></div>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;gap:14px;flex-wrap:wrap">
+          <div>
+            <div class="cta">
+              <a class="btn" href="https://hts-2k25.devpost.com/?ref_content=default&ref_feature=challenge&ref_medium=portfolio" target="_blank" rel="noopener">Register on Devpost</a>
+              <a class="ghost" href="mailto:blackxmask.official@gmail.com">Contact</a>
+            </div>
+
+            <div class="countdown" id="countdown">
+              <!-- JS will populate countdown blocks -->
+            </div>
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:center">
+            <div class="logo" title="HTS Logo">
+              <img src="https://github.com/user-attachments/assets/d0bc1e8d-5325-4d17-8961-49c704896230" alt="HTS Logo" />
+            </div>
+            <div style="text-align:right">
+              <div style="font-weight:800">BlackXmask</div>
+              <div class="muted">Community · Cybersecurity · Learning</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right column: quick info -->
+      <aside class="card fade-in delay">
+        <h3 style="margin-top:0">Important Dates (PST)</h3>
+        <p class="muted">Registration Closes: <strong>15 November 2025, 12:00 AM (PST)</strong><br>Round 1 Begins: <strong>16 November 2025, 12:00 AM (PST)</strong></p>
+
+        <hr style="border:none;height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent);margin:12px 0">
+
+        <h4 style="margin:6px 0">Quick Links</h4>
+        <div class="socials">
+          <a href="https://hts-2k25.devpost.com/" target="_blank">Devpost</a>
+          <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank">LinkedIn</a>
+          <a href="https://www.youtube.com/@ah_blackmask" target="_blank">YouTube</a>
+          <a href="https://tiktok.com/@blackxmask03" target="_blank">TikTok</a>
+        </div>
+
+        <hr style="border:none;height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent);margin:12px 0">
+        <div class="muted">Team size: <strong>2</strong><br>Duration: <strong>3–5 days</strong></div>
+      </aside>
+    </div>
+
+    <!-- Sections: Overview, Rounds, Rules -->
+    <section class="grid">
+      <div class="card fade-in">
+        <h3>Overview</h3>
+        <p class="muted">HTS 2025 is designed to give participants practical experience across forensics, reversing, and project development. Everyone is welcome — no prior experience required.</p>
+
+        <h4 style="margin-bottom:6px">Scoring</h4>
+        <ul>
+          <li>Challenge rounds (flags/reversing): 50 pts</li>
+          <li>Project development: 30 pts</li>
+          <li>LinkedIn activity: 10 pts</li>
+          <li>Report/documentation: 10 pts</li>
+        </ul>
+      </div>
+
+      <div class="card fade-in delay">
+        <h3>Rules</h3>
+        <ol class="rules">
+          <li>Everyone is welcomed and respected.</li>
+          <li>Teams must consist of <strong>exactly 2 members</strong>.</li>
+          <li>Submissions must be original work.</li>
+          <li>Daily LinkedIn posts required for the LinkedIn score.</li>
+          <li>Reports must follow the official format.</li>
+          <li>Organizers’ decisions are final.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <h3>Rounds</h3>
+      <div class="grid" style="margin-top:8px">
+        <div class="card">
+          <div class="round-title">Round 1 — Folder Forensics / Cryptography <span class="flag">Beginner</span></div>
+          <p class="muted">Find 9 flags across a large dataset. Tools: strings, steghide, binwalk, exiftool. Time: 60–90 minutes.</p>
+        </div>
+
+        <div class="card">
+          <div class="round-title">Round 2 — Reverse & Recover <span class="flag">Intermediate</span></div>
+          <p class="muted">Reverse safe Windows executables to extract flags. Tools allowed: Ghidra, IDA Free, x64dbg, radare2. Time: 2–3 hours.</p>
+        </div>
+
+        <div class="card">
+          <div class="round-title">Round 3 — Build a Project <span class="flag">Advanced</span></div>
+          <p class="muted">Build a cybersecurity-related mini-project. Demo + README + short report. Judging focuses on functionality, originality, code quality, documentation, and presentation.</p>
+        </div>
+
+        <div class="card">
+          <div style="font-weight:800">Prizes & Recognition</div>
+          <p class="muted">Top teams receive official certificates and online exposure. Mentorship available for selected teams.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="fade-in">
+      <h3>Contact & Follow</h3>
+      <p class="muted">For sponsorships, contact <a href="mailto:blackxmask.official@gmail.com" style="color:var(--text);text-decoration:underline">blackxmask.official@gmail.com</a>.</p>
+      <div class="socials" style="margin-top:10px">
+        <a href="https://tiktok.com/@blackxmask03" target="_blank">TikTok</a>
+        <a href="https://whatsapp.com/channel/0029Vb5zVHiDTkK4DQoYQS3q" target="_blank">WhatsApp</a>
+        <a href="https://www.youtube.com/@ah_blackmask" target="_blank">YouTube</a>
+        <a href="https://www.linkedin.com/in/abdullah-as-12s2005" target="_blank">LinkedIn</a>
+      </div>
+    </section>
+
+    <footer class="fade-in" style="margin-top:26px">
+      <small>“Hack. Learn. Build. Protect.” — Proudly presented by BlackXmask</small>
+    </footer>
+  </main>
+
+  <script>
+    /* ---------- Particle system (simple & lightweight) ---------- */
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width = innerWidth;
+    let H = canvas.height = innerHeight;
+
+    const particles = [];
+    const PCOUNT = Math.round((W*H)/90000); // scale with area
+
+    function rand(min,max){return Math.random()*(max-min)+min}
+
+    function makeParticles(){
+      particles.length = 0;
+      for(let i=0;i<PCOUNT;i++){
+        particles.push({x:rand(0,W),y:rand(0,H),vx:rand(-0.2,0.2),vy:rand(-0.1,0.1),r:rand(0.6,2.2),alpha:rand(0.08,0.3)})
+      }
+    }
+
+    function resize(){W=canvas.width=innerWidth;H=canvas.height=innerHeight;makeParticles();}
+    addEventListener('resize',resize);
+
+    function loop(){
+      ctx.clearRect(0,0,W,H);
+      for(const p of particles){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+        ctx.beginPath(); ctx.globalAlpha=p.alpha; ctx.fillStyle='white'; ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      }
+      ctx.globalAlpha=0.12;
+      requestAnimationFrame(loop);
+    }
+
+    resize(); loop();
+
+    /* ---------- Countdown logic ---------- */
+    // Convert given PST datetimes (00:00 PST) into UTC ISO strings.
+    // PST is UTC-8 (standard time). 15 Nov 2025 00:00 PST => 2025-11-15T08:00:00Z
+    const registrationUTC = new Date('2025-11-15T08:00:00Z');
+    const round1UTC = new Date('2025-11-16T08:00:00Z');
+
+    function makeBlock(label, days, hours, mins, secs){
+      return `<div class="item"><div class="num">${days}</div><small>${label}</small></div>`;
+    }
+
+    function updateCountdown(){
+      const now = new Date();
+      const target = now < registrationUTC ? registrationUTC : (now < round1UTC ? round1UTC : null);
+      const container = document.getElementById('countdown');
+      if(!target){ container.innerHTML = '<div class="muted">Event in progress or finished</div>'; return }
+      const diff = Math.max(0, Math.floor((target - now)/1000));
+      const days = Math.floor(diff/86400);
+      const hours = Math.floor((diff%86400)/3600);
+      const mins = Math.floor((diff%3600)/60);
+      const secs = diff%60;
+      container.innerHTML = `<div class="item"><div class="num">${String(days).padStart(2,'0')}</div><small>Days</small></div>
+        <div class="item"><div class="num">${String(hours).padStart(2,'0')}</div><small>Hours</small></div>
+        <div class="item"><div class="num">${String(mins).padStart(2,'0')}</div><small>Minutes</small></div>
+        <div class="item"><div class="num">${String(secs).padStart(2,'0')}</div><small>Seconds</small></div>`;
+    }
+    updateCountdown(); setInterval(updateCountdown,1000);
+
+    /* ---------- Small UI niceties: typewriter subtitle ---------- */
+    (function typewriter(){
+      const el = document.querySelector('.sub');
+      const text = el.textContent.trim();
+      el.textContent = '';
+      let i=0;
+      function step(){ if(i<=text.length){el.textContent = text.slice(0,i); i++; setTimeout(step,22)} }
+      step();
+    })();
+
+    /* ---------- Smooth entrance toggles for elements already present ---------- */
+    document.querySelectorAll('.fade-in').forEach((el,idx)=>{ el.style.animationDelay = (0.06*idx)+'s' });
+
+  </script>
+</body>
+</html>
