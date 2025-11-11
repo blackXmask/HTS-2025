@@ -71,16 +71,16 @@
     .sub{color:var(--muted);margin:12px 0 18px 0;line-height:1.45;min-height:42px}
 
     /* Banner */
-    .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.12);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center;position:relative}
+    .banner{width:100%;height:160px;border-radius:12px;overflow:hidden;border:3px solid rgba(0,163,255,0.12);box-shadow: inset 0 -20px 60px rgba(0,0,0,0.35);background-size:cover;background-position:center}
     .banner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
     .banner:hover img{transform:scale(1.05)}
     .banner .overlay{position:absolute;inset:0;height:100%;width:100%;background:linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.28));display:block;pointer-events:none}
 
     /* Logo */
-    .logo{width:160px;height:160px;border-radius:16px;border:2px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 48px rgba(0,163,255,0.16);overflow:hidden;position:relative;transition:transform .25s, box-shadow .25s}
+    .logo{width:160px;height:160px;border-radius:16px;border:2px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 48px rgba(0,163,255,0.16);overflow:hidden;position:relative}
     .logo:hover{transform:translateY(-6px) rotate(-1deg);box-shadow:0 28px 90px rgba(0,163,255,0.24)}
     .logo img{width:100%;height:100%;object-fit:cover;border-radius:10px;display:block}
-    .logo .online{position:absolute;right:12px;bottom:12px;width:14px;height:14px;border-radius:999px;border:2px solid rgba(0,0,0,0.45);background:var(--online-green);box-shadow:0 0 12px rgba(57,211,8,0.18)}
+    .logo .online{position:absolute;right:12px;bottom:12px;width:14px;height:14px;border-radius:999px;border:2px solid rgba(0,0,0,0.45);background:var(--online-green);box-shadow:0 0 12px rgba(57,211,8,0.12)}
 
     /* CTA */
     .cta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
@@ -92,7 +92,7 @@
     .countdown{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center}
     .countdown .item{
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:16px 18px;border-radius:12px;min-width:98px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.45);display:flex;flex-direction:column;align-items:center;backdrop-filter: blur(3px);
+      padding:14px 16px;border-radius:12px;min-width:88px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.45);display:flex;flex-direction:column;align-items:center;backdrop-filter: blur(3px);
       transition:transform .28s, box-shadow .28s;
     }
     .countdown .item:hover{transform:translateY(-4px);box-shadow:0 22px 42px rgba(0,0,0,0.55)}
@@ -156,6 +156,7 @@
           <div style="min-width:220px">
             <div class="cta" role="region" aria-label="Call to action">
               <a class="btn" id="registerBtn" href="https://hts-2k25.devpost.com/?ref_content=default&ref_feature=challenge&ref_medium=portfolio" target="_blank" rel="noopener noreferrer">Register Now</a>
+              <a class="ghost" href="submission.html">Submission Guide</a>
               <a class="ghost" href="mailto:blackxmask.official@gmail.com">Contact</a>
             </div>
 
@@ -274,33 +275,20 @@
   </div>
 
   <script>
-    /**
-     * Countdown timer
-     * - Shows time remaining until Registration Close (15 Nov 2025 00:00 PST)
-     * - Shows time remaining until Round 1 Start (16 Nov 2025 00:00 PST) below
-     *
-     * Notes:
-     * - PST is UTC-8; we use an ISO timestamp with -08:00 offset so the countdown is tied to PST.
-     * - The countdown updates every second. When the target passes, it shows 0 and a small message.
-     */
-
+    // Countdown timer for "time left" (shows Days / Hours / Minutes / Seconds)
     (function () {
-      // Targets (PST: -08:00)
+      // Registration close target (PST is UTC-8)
       const registrationClose = new Date('2025-11-15T00:00:00-08:00'); // 15 Nov 2025 00:00 PST
-      const roundsStart = new Date('2025-11-16T00:00:00-08:00'); // 16 Nov 2025 00:00 PST
-
       const countdownEl = document.getElementById('countdown');
 
-      // Build the DOM structure for the primary countdown (Days / Hours / Minutes / Seconds)
+      // Create UI blocks: days / hours / minutes / seconds
       const parts = [
         { key: 'days', label: 'Days' },
         { key: 'hours', label: 'Hours' },
         { key: 'minutes', label: 'Minutes' },
         { key: 'seconds', label: 'Seconds' }
       ];
-
       const partEls = {};
-
       parts.forEach(p => {
         const item = document.createElement('div');
         item.className = 'item';
@@ -308,7 +296,7 @@
 
         const num = document.createElement('div');
         num.className = 'num';
-        num.textContent = '0';
+        num.textContent = '00';
 
         const small = document.createElement('small');
         small.textContent = p.label;
@@ -320,57 +308,28 @@
         partEls[p.key] = { item, num };
       });
 
-      // Add a small secondary line for rounds start so users see both deadlines
-      const secondary = document.createElement('div');
-      secondary.style.display = 'flex';
-      secondary.style.flexDirection = 'column';
-      secondary.style.marginTop = '8px';
-      secondary.style.gap = '4px';
-      secondary.style.width = '100%';
-      secondary.style.alignItems = 'flex-start';
-
-      const regLabel = document.createElement('div');
-      regLabel.className = 'muted';
-      regLabel.style.fontSize = '13px';
-      regLabel.textContent = 'Registration closes: 15 Nov 2025 00:00 PST';
-
-      const roundsLabel = document.createElement('div');
-      roundsLabel.className = 'muted';
-      roundsLabel.style.fontSize = '13px';
-      roundsLabel.textContent = 'Rounds begin: 16 Nov 2025 00:00 PST';
-
-      secondary.appendChild(regLabel);
-      secondary.appendChild(roundsLabel);
-      countdownEl.parentNode.appendChild(secondary);
-
-      // Helper: compute diff parts
       function getDiffParts(targetDate) {
         const now = new Date();
-        let diff = Math.max(0, targetDate - now); // milliseconds, never negative
+        let diff = Math.max(0, targetDate - now);
 
         const secondsTotal = Math.floor(diff / 1000);
         const days = Math.floor(secondsTotal / 86400);
         const hours = Math.floor((secondsTotal % 86400) / 3600);
         const minutes = Math.floor((secondsTotal % 3600) / 60);
         const seconds = secondsTotal % 60;
-
         return { days, hours, minutes, seconds, totalMs: diff };
       }
 
-      // Animate pop on change
       function pop(el) {
         el.classList.add('pop');
         clearTimeout(el._popTimeout);
         el._popTimeout = setTimeout(() => el.classList.remove('pop'), 420);
       }
 
-      // Update loop for registration close (primary countdown)
       let prev = { days: null, hours: null, minutes: null, seconds: null };
       function update() {
         const d = getDiffParts(registrationClose);
-
-        // update each element, animate if value changes
-        ['days', 'hours', 'minutes', 'seconds'].forEach(k => {
+        ['days','hours','minutes','seconds'].forEach(k => {
           const value = d[k];
           if (prev[k] !== value) {
             partEls[k].num.textContent = String(value).padStart(2, '0');
@@ -379,9 +338,8 @@
           }
         });
 
-        // If registration is passed, show a small notice and flip to rounds start countdown
         if (d.totalMs <= 0) {
-          // replace the top items with a simple message about registration closed and show rounds start time
+          // registration closed - show message
           countdownEl.innerHTML = '';
           const closedItem = document.createElement('div');
           closedItem.className = 'item';
@@ -391,90 +349,38 @@
           closedText.style.fontWeight = '800';
           closedText.textContent = 'Registration closed';
           const nextSmall = document.createElement('small');
-          nextSmall.textContent = 'See you in the rounds — next countdown below';
+          nextSmall.textContent = 'Rounds begin soon — check schedule';
           closedItem.appendChild(closedText);
           closedItem.appendChild(nextSmall);
           countdownEl.appendChild(closedItem);
-
-          // Start a one-time swap: show countdown to roundsStart under the same area
-          startRoundsCountdown();
-          clearInterval(timerInterval);
         }
       }
 
-      // Rounds countdown (shown when registration is closed or can be active if registration already passed)
-      let roundsPrev = { days: null, hours: null, minutes: null, seconds: null };
-      let roundsInterval = null;
-      function startRoundsCountdown() {
-        // container for rounds countdown
-        const roundsContainer = document.createElement('div');
-        roundsContainer.className = 'countdown';
-        roundsContainer.style.marginTop = '10px';
-
-        const rParts = ['days', 'hours', 'minutes', 'seconds'];
-        const rEls = {};
-
-        rParts.forEach(p => {
-          const item = document.createElement('div');
-          item.className = 'item';
-          item.style.minWidth = '80px';
-
-          const num = document.createElement('div');
-          num.className = 'num';
-          num.textContent = '0';
-
-          const small = document.createElement('small');
-          small.textContent = p.charAt(0).toUpperCase() + p.slice(1);
-
-          item.appendChild(num);
-          item.appendChild(small);
-          roundsContainer.appendChild(item);
-          rEls[p] = { item, num };
-        });
-
-        // header
-        const header = document.createElement('div');
-        header.style.fontWeight = '800';
-        header.style.marginTop = '8px';
-        header.textContent = 'Time until Round 1';
-
-        countdownEl.appendChild(header);
-        countdownEl.appendChild(roundsContainer);
-
-        function roundUpdate() {
-          const d = getDiffParts(roundsStart);
-          ['days', 'hours', 'minutes', 'seconds'].forEach(k => {
-            const value = d[k];
-            if (roundsPrev[k] !== value) {
-              rEls[k].num.textContent = String(value).padStart(2, '0');
-              rEls[k].num.classList.add('pop');
-              setTimeout(() => rEls[k].num.classList.remove('pop'), 420);
-              roundsPrev[k] = value;
-            }
-          });
-
-          if (d.totalMs <= 0) {
-            // Round started
-            clearInterval(roundsInterval);
-            countdownEl.appendChild(document.createElement('div')).textContent = 'Round 1 is live!';
-          }
-        }
-
-        roundUpdate();
-        roundsInterval = setInterval(roundUpdate, 1000);
-      }
-
-      // Initial run
       update();
-      const timerInterval = setInterval(update, 1000);
-
-      // If registration already passed on page load, swap immediately
-      if (registrationClose - new Date() <= 0) {
-        clearInterval(timerInterval);
-        countdownEl.innerHTML = '';
-        startRoundsCountdown();
-      }
+      setInterval(update, 1000);
     })();
+
+    // Minimal interactive controls for gradient/pause (purely visual)
+    const anim = document.getElementById('animatedGradient');
+    const presetBtn = document.getElementById('presetBtn');
+    const pauseBtn = document.getElementById('pauseAnim');
+    let paused = false;
+
+    presetBtn?.addEventListener('click', () => {
+      anim.style.filter = anim.style.filter ? '' : 'saturate(1.25) contrast(1.05)';
+      presetBtn.textContent = anim.style.filter ? 'Restore' : 'Enhance';
+    });
+
+    pauseBtn?.addEventListener('click', () => {
+      paused = !paused;
+      anim.style.animationPlayState = paused ? 'paused' : 'running';
+      pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+    });
+
+    // Simple staggered fade-in
+    document.querySelectorAll('.fade-in').forEach((el, i) => {
+      el.style.animationDelay = (i * 0.06) + 's';
+    });
   </script>
 </body>
 </html>
