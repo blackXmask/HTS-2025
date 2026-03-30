@@ -19,14 +19,17 @@
 
   ---
 
-  ## 🗓️ **Important Dates**
+  ## 🗓️ **Hackathon Completed!-Important Dates**
   | **Event**               | **Date & Time (PST)**          |
   | ----------------------- | ------------------------------ |
   | **Registration Closes** | **15 November 2025, 12:00 AM** |
   | **Round 01 Begins**     | **16 November 2025, 12:00 AM** |
+
+<img width="1916" height="790" alt="image" src="https://github.com/user-attachments/assets/78d6a424-a7a0-4209-ac01-e00080fcb948" />
+<img width="1463" height="301" alt="image" src="https://github.com/user-attachments/assets/d2202868-9426-421e-aa5d-d74d2217ac2e" />
+
 </div>
 
----
 
 ## 🎯 **Overview**
 **HTS 2025 — Hack The Shield** is a cybersecurity-focused hackathon designed to provide participants with hands-on experience in **cybersecurity, computer science, and IT** through practical challenges.  
@@ -124,15 +127,6 @@ We welcome **industry partners, tech orgs, and universities** to collaborate and
 
 ---
 
-<div align="center" style="margin-top: 40px;">
-  <h2>🌐 <b>Follow Us</b></h2>
-
-  [![TikTok](https://img.shields.io/badge/Follow%20on-TikTok-%23000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/@blackxmask03?_t=ZS-90d47kv9L64&_r=1)
-  [![WhatsApp](https://img.shields.io/badge/Join-WhatsApp%20Channel-%2325D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://whatsapp.com/channel/0029Vb5zVHiDTkK4DQoYQS3q)
-  [![YouTube](https://img.shields.io/badge/Subscribe-YouTube-%23FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@ah_blackmask)
-  [![LinkedIn](https://img.shields.io/badge/Connect-LinkedIn-%230A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/abdullah-as-12s2005)
-
-  <hr style="width:60%; border: 1px solid #007bff; margin: 30px auto;" />
 
   ### 💬 *“Hack. Learn. Build. Protect.”*  
   Proudly presented by **BlackXmask**
